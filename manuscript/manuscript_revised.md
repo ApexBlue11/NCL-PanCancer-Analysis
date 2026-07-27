@@ -53,7 +53,7 @@ All analyses were performed in Python 3.14. Analysis code, intermediate result t
 
 ### 2.1 Expression data and cohort definition
 
-Transcriptome data were obtained from the UCSC Xena Toil recompute of TCGA, TARGET and GTEx (dataset `TcgaTargetGtex_rsem_gene_tpm`), comprising 60,498 genes across 19,131 samples quantified as log₂(TPM + 0.001).^3,25^ This resource was chosen deliberately: TCGA and GTEx were originally processed with different pipelines, and comparing them directly introduces batch effects that can exceed the biological differences of interest. The Toil recompute applies a single alignment and quantification pipeline to both, which is what makes a tumour-versus-GTEx comparison defensible.
+Transcriptome data were obtained from the UCSC Xena Toil recompute of TCGA, TARGET and GTEx (dataset `TcgaTargetGtex_rsem_gene_tpm`), comprising 60,498 genes across 19,131 samples quantified as log₂(TPM + 0.001).^3,25,38^ This resource was chosen deliberately: TCGA and GTEx were originally processed with different pipelines, and comparing them directly introduces batch effects that can exceed the biological differences of interest. The Toil recompute applies a single alignment and quantification pipeline to both, which is what makes a tumour-versus-GTEx comparison defensible.
 
 Samples were assigned to 33 TCGA cohorts using the Xena phenotype annotation. Tumour samples were those designated "Primary Tumor" or, for LAML, "Primary Blood Derived Cancer – Peripheral Blood". Two classes of normal comparator were defined: TCGA adjacent normal tissue ("Solid Tissue Normal"), and GTEx normal tissue matched to each cancer's tissue of origin. Each TCGA–GTEx pairing was annotated with a match quality of *good*, *approximate* or *none*; approximate pairings (CHOL–liver, HNSC–salivary gland, READ–colon, SARC–adipose, DLBC–spleen, LAML–bone marrow) are reported but flagged, and cancers with no acceptable GTEx counterpart (MESO, THYM, UVM) were analysed against adjacent normals only. The full mapping with quality annotations is given in Supplementary Table S1 and in `scripts/cohorts.py`.
 
@@ -67,13 +67,13 @@ Immune infiltration estimates for TCGA samples were downloaded from TIMER2.0, wh
 
 ### 2.3 Differential expression and stage association
 
-For each cancer, NCL expression in tumours was compared with each normal comparator using two-sided Wilcoxon rank-sum tests. Effect sizes are reported as Cliff's delta with 95% percentile bootstrap confidence intervals (2,000 resamples), and additionally as Hedges' *g*. A non-parametric effect size was preferred because expression distributions are skewed and several cohorts have very small numbers of adjacent normals. Bootstrap intervals were used in preference to Cliff's asymptotic variance because that approximation is unreliable at the sample sizes some cohorts provide.
+For each cancer, NCL expression in tumours was compared with each normal comparator using two-sided Wilcoxon rank-sum tests. Effect sizes are reported as Cliff's delta^39^ with 95% percentile bootstrap confidence intervals (2,000 resamples), and additionally as Hedges' *g*. A non-parametric effect size was preferred because expression distributions are skewed and several cohorts have very small numbers of adjacent normals. Bootstrap intervals were used in preference to Cliff's asymptotic variance because that approximation is unreliable at the sample sizes some cohorts provide.
 
 Association with pathological stage was assessed with the Jonckheere–Terpstra test for monotonic trend across ordered stages I–IV, using the tie-corrected normal approximation, alongside a Kruskal–Wallis test for any difference among stages. The distinction matters: a Kruskal–Wallis result establishes only that stages differ, not that expression rises with stage, and comparisons of each stage against normal tissue — as displayed by several web tools — do not test a stage-ordered trend at all. Cancers were included when at least three stage groups contained ≥5 patients and the cohort totalled ≥40 staged patients.
 
 ### 2.4 Survival analysis
 
-For each cancer and each endpoint (OS, DSS, PFS), NCL expression was z-scored within cohort so that hazard ratios are expressed per standard deviation and are comparable across cancers. Three models were fitted: a log-rank test comparing patients above and below the cohort median (the univariate analysis reported in most prior work); a univariate Cox model on continuous NCL; and a multivariable Cox model including age, sex, stage and grade. Covariates were retained only where available for >80% of the cohort and showing more than one distinct value, and the covariates actually used are recorded for every model. Cancers were modelled when ≥30 patients and ≥10 events were available.
+For each cancer and each endpoint (OS, DSS, PFS), NCL expression was z-scored within cohort so that hazard ratios are expressed per standard deviation and are comparable across cancers. Three models were fitted using `lifelines`:^40^ a log-rank test comparing patients above and below the cohort median (the univariate analysis reported in most prior work); a univariate Cox model on continuous NCL; and a multivariable Cox model including age, sex, stage and grade. Covariates were retained only where available for >80% of the cohort and showing more than one distinct value, and the covariates actually used are recorded for every model. Cancers were modelled when ≥30 patients and ≥10 events were available.
 
 The proportional-hazards assumption was tested for every multivariable model using Schoenfeld residuals with rank-transformed time.^31^ Models in which the NCL term violated the assumption (p<0.05) are identified explicitly in Results and in Supplementary Table S3, because a hazard ratio from such a model summarises a time-varying effect and should not be read as a single constant risk multiplier.
 
@@ -193,9 +193,9 @@ Third, the relationship between NCL and the tumour immune microenvironment is re
 
 ### 4.2 B7-H3 as the principal immune association
 
-The most robust immune finding is the association between NCL and B7-H3 (CD276), positive in 21 of 33 cancers after adjustment for both purity and proliferation, and negative in none. B7-H3 is an attractive comparison for NCL: both are broadly overexpressed across carcinomas, both reach the tumour-cell surface, and both are being pursued as surface-targeting opportunities. B7-H3 is currently the subject of extensive clinical development, including antibody–drug conjugates and CAR-T approaches, and is notable for being expressed in tumours that are not inflamed — the immune-excluded setting in which conventional PD-1/PD-L1 blockade performs poorly.
+The most robust immune finding is the association between NCL and B7-H3 (CD276), positive in 21 of 33 cancers after adjustment for both purity and proliferation, and negative in none. B7-H3 is an attractive comparison for NCL: both are broadly overexpressed across carcinomas, both reach the tumour-cell surface, and both are being pursued as surface-targeting opportunities. B7-H3 is currently the subject of extensive clinical development, including antibody–drug conjugates and CAR-T approaches, and is notable for being expressed in tumours that are not inflamed — the immune-excluded setting in which conventional PD-1/PD-L1 blockade performs poorly.^36^
 
-The co-occurrence of NCL and B7-H3 in an immune-excluded context, together with the parallel associations with CD73 and CD39, suggests that NCL-high tumours may be characterised less by classical T-cell exhaustion than by an adenosine-mediated, tumour-cell-intrinsic mode of immune evasion. We emphasise that this is an association-level observation and a hypothesis for testing, not a demonstrated mechanism; nothing in these data establishes that NCL regulates B7-H3 or that either is causal for the immune phenotype. The relevant experiment — perturbing NCL and measuring B7-H3 and immune composition — has not been performed here.
+The co-occurrence of NCL and B7-H3 in an immune-excluded context, together with the parallel associations with CD73 and CD39, suggests that NCL-high tumours may be characterised less by classical T-cell exhaustion than by an adenosine-mediated, tumour-cell-intrinsic mode of immune evasion.^37^ We emphasise that this is an association-level observation and a hypothesis for testing, not a demonstrated mechanism; nothing in these data establishes that NCL regulates B7-H3 or that either is causal for the immune phenotype. The relevant experiment — perturbing NCL and measuring B7-H3 and immune composition — has not been performed here.
 
 ### 4.3 Pathway context
 
@@ -253,7 +253,7 @@ Nucleolin is broadly and reproducibly overexpressed across human cancers at both
 
 **Consent for publication:** Not applicable.
 
-**Availability of data and materials:** All primary data are publicly available. Transcriptome data: UCSC Xena Toil recompute (https://xenabrowser.net/datapages/, dataset `TcgaTargetGtex_rsem_gene_tpm`). Clinical, survival, TMB and MSI data: cBioPortal (https://www.cbioportal.org), TCGA PanCancer Atlas studies. Immune infiltration estimates: TIMER2.0 (http://timer.cistrome.org). Gene sets: MSigDB v2024.1.Hs (https://www.gsea-msigdb.org). Proteomic data: CPTAC via the `cptac` Python package. All analysis code, the complete computational environment specification, intermediate result tables and a step-by-step methodology document are available at [REPOSITORY URL]. No new data were generated.
+**Availability of data and materials:** All primary data are publicly available. Transcriptome data: UCSC Xena Toil recompute (https://xenabrowser.net/datapages/, dataset `TcgaTargetGtex_rsem_gene_tpm`). Clinical, survival, TMB and MSI data: cBioPortal (https://www.cbioportal.org), TCGA PanCancer Atlas studies. Immune infiltration estimates: TIMER2.0 (http://timer.cistrome.org). Gene sets: MSigDB v2024.1.Hs (https://www.gsea-msigdb.org). Proteomic data: CPTAC via the `cptac` Python package. All analysis code, the complete computational environment specification, intermediate result tables and a step-by-step methodology document are available at https://github.com/ApexBlue11/ncl-pancancer-analysis. No new data were generated.
 
 **Competing interests:** The authors declare that the research was conducted without any commercial or financial relationships that could be construed as a potential conflict of interest.
 
@@ -264,6 +264,49 @@ Nucleolin is broadly and reproducibly overexpressed across human cancers at both
 **Use of AI and AI-assisted technologies:** An AI assistant (Anthropic Claude) was used during preparation of this revision for analysis code development, statistical implementation, execution of the computational workflow, and drafting and editing of manuscript text. All analyses were specified, inspected and verified by the authors; all statistical implementations were validated against reference implementations prior to use; and the authors take full responsibility for the integrity of the data, the accuracy of the analyses and the content of the manuscript. No AI system is an author, and no AI system was used to generate or fabricate data.
 
 **Acknowledgements:** The authors thank the reviewers of the previous version of this manuscript, whose criticisms prompted the reanalysis reported here and directly identified several of the errors corrected in Section 4.5.
+
+## References
+
+1. Bray F, Laversanne M, Sung H, Ferlay J, Siegel RL, Soerjomataram I, et al. Global cancer statistics 2022: GLOBOCAN estimates of incidence and mortality worldwide for 36 cancers in 185 countries. CA Cancer J Clin. 2024;74(3):229–263.
+2. Piña-Sánchez P, Chávez-González A, Ruiz-Tachiquín M, Vadillo E, Monroy-García A, Montesinos JJ, et al. Cancer biology, epidemiology, and treatment in the 21st century: current status and future challenges from a biomedical perspective. Cancer Control. 2021;28:10732748211038735.
+3. Cancer Genome Atlas Research Network, Weinstein JN, Collisson EA, Mills GB, Shaw KR, Ozenberger BA, et al. The Cancer Genome Atlas Pan-Cancer analysis project. Nat Genet. 2013;45(10):1113–1120.
+4. GTEx Consortium. The Genotype-Tissue Expression (GTEx) pilot analysis: multitissue gene regulation in humans. Science. 2015;348(6235):648–660.
+5. Ellis MJ, Gillette M, Carr SA, Paulovich AG, Smith RD, Rodland KK, et al. Connecting genomic alterations to cancer biology with proteomics: the NCI Clinical Proteomic Tumor Analysis Consortium. Cancer Discov. 2013;3(10):1108–1112.
+6. Ioannidis JP. Why most published research findings are false. PLoS Med. 2005;2(8):e124.
+7. Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. J R Stat Soc Series B Stat Methodol. 1995;57(1):289–300.
+8. Yangngam S, Prasopsiri J, Hatthakarnkul P, Thongchot S, Thuwajit P, Yenchitsomanus PT, et al. Cellular localization of nucleolin determines the prognosis in cancers: a meta-analysis. J Mol Med (Berl). 2022;100(8):1145–1157.
+9. Berger CM, Gaume X, Bouvet P. The roles of nucleolin subcellular localization in cancer. Biochimie. 2015;113:78–85.
+10. Mongelard F, Bouvet P. Nucleolin: a multiFACeTed protein. Trends Cell Biol. 2007;17(2):80–86.
+11. Jia W, Yao Z, Zhao J, Guan Q, Gao L. New perspectives of physiological and pathological functions of nucleolin (NCL). Life Sci. 2017;186:1–10.
+12. Bates PJ, Reyes-Reyes EM, Malik MT, Murphy EM, O'Toole MG, Trent JO. G-quadruplex oligonucleotide AS1411 as a cancer-targeting agent: uses and mechanisms. Biochim Biophys Acta Gen Subj. 2017;1861(5 Pt B):1414–1428.
+13. Gilles ME, Maione F, Cossutta M, Carpentier G, Caruana L, Di Maria S, et al. Nucleolin targeting impairs the progression of pancreatic cancer and promotes the normalization of tumor vasculature. Cancer Res. 2016;76(24):7181–7193.
+14. Ponzo M, Debesset A, Cossutta M, Chalabi-Dchar M, Houppe C, Pilon C, et al. Nucleolin therapeutic targeting decreases pancreatic cancer immunosuppression. Cancers (Basel). 2022;14(17):4265.
+15. Lin Q, Ma X, Hu S, Li R, Wei X, Han B, et al. Overexpression of nucleolin is a potential prognostic marker in endometrial carcinoma. Cancer Manag Res. 2021;13:1955–1965.
+16. Ezzatifar F, Rafiei A, Jeddi-Tehrani M. Nucleolin: a tumor associated antigen as a potential lung cancer biomarker. Pathol Res Pract. 2022;240:154160.
+17. Ying J, Pan R, Tang Z, Zhu J, Ren P, Lou Y, et al. Downregulation of NCL attenuates tumor formation and growth in HeLa cells by targeting the PI3K/AKT pathway. Cancer Med. 2022;11(6):1454–1464.
+18. Ugrinova I, Petrova M, Chalabi-Dchar M, Bouvet P. Multifaceted nucleolin protein and its molecular partners in oncogenesis. Adv Protein Chem Struct Biol. 2018;111:133–164.
+19. Yu X, Xie L, Ge J, Li H, Zhong S, Liu X. Integrating single-cell RNA-seq and spatial transcriptomics reveals MDK-NCL dependent immunosuppressive environment in endometrial carcinoma. Front Immunol. 2023;14:1145300.
+20. Newman AM, Liu CL, Green MR, Gentles AJ, Feng W, Xu Y, et al. Robust enumeration of cell subsets from tissue expression profiles. Nat Methods. 2015;12(5):453–457.
+21. Finotello F, Mayer C, Plattner C, Laschober G, Rieder D, Hackl H, et al. Molecular and pharmacological modulators of the tumor immune contexture revealed by deconvolution of RNA-seq data. Genome Med. 2019;11(1):34.
+22. Aran D, Hu Z, Butte AJ. xCell: digitally portraying the tissue cellular heterogeneity landscape. Genome Biol. 2017;18(1):220.
+23. Becht E, Giraldo NA, Lacroix L, Buttard B, Elarouci N, Petitprez F, et al. Estimating the population abundance of tissue-infiltrating immune and stromal cell populations using gene expression. Genome Biol. 2016;17(1):218.
+24. Racle J, de Jonge K, Baumgaertner P, Speiser DE, Gfeller D. Simultaneous enumeration of cancer and immune cell types from bulk tumor gene expression data. Elife. 2017;6:e26476.
+25. Vivian J, Rao AA, Nothaft FA, Ketchum C, Armstrong J, Novak A, et al. Toil enables reproducible, open source, big biomedical data analyses. Nat Biotechnol. 2017;35(4):314–316.
+26. Cerami E, Gao J, Dogrusoz U, Gross BE, Sumer SO, Aksoy BA, et al. The cBio Cancer Genomics Portal: an open platform for exploring multidimensional cancer genomics data. Cancer Discov. 2012;2(5):401–404.
+27. Gao J, Aksoy BA, Dogrusoz U, Dresdner G, Gross B, Sumer SO, et al. Integrative analysis of complex cancer genomics and clinical profiles using the cBioPortal. Sci Signal. 2013;6(269):pl1.
+28. Liu J, Lichtenberg T, Hoadley KA, Poisson LM, Lazar AJ, Cherniack AD, et al. An integrated TCGA pan-cancer clinical data resource to drive high-quality survival outcome analytics. Cell. 2018;173(2):400–416.e11.
+29. Kautto EA, Bonneville R, Miya J, Yu L, Krook MA, Reeser JW, et al. Performance evaluation for rapid detection of pan-cancer microsatellite instability with MANTIS. Oncotarget. 2017;8(5):7452–7463.
+30. Li T, Fu J, Zeng Z, Cohen D, Li J, Chen Q, et al. TIMER2.0 for analysis of tumor-infiltrating immune cells. Nucleic Acids Res. 2020;48(W1):W509–W514.
+31. Grambsch PM, Therneau TM. Proportional hazards tests and diagnostics based on weighted residuals. Biometrika. 1994;81(3):515–526.
+32. Subramanian A, Tamayo P, Mootha VK, Mukherjee S, Ebert BL, Gillette MA, et al. Gene set enrichment analysis: a knowledge-based approach for interpreting genome-wide expression profiles. Proc Natl Acad Sci U S A. 2005;102(43):15545–15550.
+33. Liberzon A, Birger C, Thorvaldsdóttir H, Ghandi M, Mesirov JP, Tamayo P. The Molecular Signatures Database (MSigDB) hallmark gene set collection. Cell Syst. 2015;1(6):417–425.
+34. Gillespie M, Jassal B, Stephan R, Milacic M, Rothfels K, Senff-Ribeiro A, et al. The Reactome pathway knowledgebase 2022. Nucleic Acids Res. 2022;50(D1):D687–D692.
+35. Fang Z, Liu X, Peltz G. GSEApy: a comprehensive package for performing gene set enrichment analysis in Python. Bioinformatics. 2023;39(1):btac757.
+36. Koumprentziotis IA, Theocharopoulos C, Foteinou D, Angeli E, Anastasopoulou A, Gogas H, et al. New emerging targets in cancer immunotherapy: the role of B7-H3. Vaccines (Basel). 2024;12(1):54.
+37. Allard B, Allard D, Buisseret L, Stagg J. The adenosine pathway in immuno-oncology. Nat Rev Clin Oncol. 2020;17(10):611–629.
+38. Goldman MJ, Craft B, Hastie M, Repečka K, McDade F, Kamath A, et al. Visualizing and interpreting cancer genomics data via the Xena platform. Nat Biotechnol. 2020;38(6):675–678.
+39. Cliff N. Dominance statistics: ordinal analyses to answer ordinal questions. Psychol Bull. 1993;114(3):494–509.
+40. Davidson-Pilon C. lifelines: survival analysis in Python. J Open Source Softw. 2019;4(40):1317.
 
 ## Figure legends
 
