@@ -1,0 +1,34 @@
+TCGA_abbreviation	full_name	n_tumour	n_TCGA_adjacent_normal	GTEx_tissue	n_GTEx_normal	tissue_match_quality
+ACC	Adrenocortical carcinoma	77	0	Adrenal Gland	128	good
+BLCA	Bladder urothelial carcinoma	407	19	Bladder	9	good
+BRCA	Breast invasive carcinoma	1092	113	Breast	179	good
+CESC	Cervical squamous cell carcinoma and endocervical adenocarcinoma	304	3	Cervix Uteri	10	good
+CHOL	Cholangiocarcinoma	36	9	Liver	110	approximate
+COAD	Colon adenocarcinoma	288	41	Colon	308	good
+DLBC	Lymphoid neoplasm diffuse large B-cell lymphoma	47	0	Spleen	100	approximate
+ESCA	Esophageal carcinoma	181	13	Esophagus	653	good
+GBM	Glioblastoma multiforme	153	5	Brain	1152	good
+HNSC	Head and neck squamous cell carcinoma	518	44	Salivary Gland	55	approximate
+KICH	Kidney chromophobe	66	25	Kidney	28	good
+KIRC	Kidney renal clear cell carcinoma	530	72	Kidney	28	good
+KIRP	Kidney renal papillary cell carcinoma	288	32	Kidney	28	good
+LAML	Acute myeloid leukemia	173	0	Bone Marrow	0	approximate
+LGG	Brain lower grade glioma	509	0	Brain	1152	good
+LIHC	Liver hepatocellular carcinoma	369	50	Liver	110	good
+LUAD	Lung adenocarcinoma	513	59	Lung	288	good
+LUSC	Lung squamous cell carcinoma	498	50	Lung	288	good
+MESO	Mesothelioma	87	0	none available	0	none
+OV	Ovarian serous cystadenocarcinoma	419	0	Ovary	88	good
+PAAD	Pancreatic adenocarcinoma	178	4	Pancreas	167	good
+PCPG	Pheochromocytoma and paraganglioma	177	3	Adrenal Gland	128	good
+PRAD	Prostate adenocarcinoma	495	52	Prostate	100	good
+READ	Rectum adenocarcinoma	92	10	Colon	308	approximate
+SARC	Sarcoma	258	2	Adipose Tissue	515	approximate
+SKCM	Skin cutaneous melanoma	102	1	Skin	556	good
+STAD	Stomach adenocarcinoma	414	36	Stomach	174	good
+TGCT	Testicular germ cell tumors	148	0	Testis	165	good
+THCA	Thyroid carcinoma	504	59	Thyroid	279	good
+THYM	Thymoma	119	2	none available	0	none
+UCEC	Uterine corpus endometrial carcinoma	180	23	Uterus	78	good
+UCS	Uterine carcinosarcoma	57	0	Uterus	78	good
+UVM	Uveal melanoma	79	0	none available	0	none

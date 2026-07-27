@@ -1,6 +1,6 @@
 # Run manifest
 
-Generated 2026-07-27T18:50:36Z on Windows-11-10.0.26200-SP0, Python 3.14.3.
+Generated 2026-07-27T19:00:42Z on Windows-11-10.0.26200-SP0, Python 3.14.3.
 
 Regenerate with `python scripts/11_manifest.py`. Diff two manifests to localise any disagreement in results to an input file, a package version or the code.
 
@@ -41,6 +41,8 @@ Regenerate with `python scripts/11_manifest.py`. Diff two manifests to localise 
 
 | table | rows | cols | sha256 (first 16) |
 |---|---|---|---|
+| `S1_cohorts_and_tissue_mapping.tsv` | 33 | 7 | `0fb3c0cc1fd368eb` |
+| `SUPPLEMENTARY_INDEX.md` | 14 | 1 | `e6800fd75919af7d` |
 | `T10_gsea_per_cancer.tsv.gz` | 32491 | 13 | `313a80daace3dd82` |
 | `T1_differential_expression.tsv` | 66 | 19 | `c68c5e4fb6f28c30` |
 | `T2_stage_association.tsv` | 17 | 17 | `e89ca282bad54263` |
