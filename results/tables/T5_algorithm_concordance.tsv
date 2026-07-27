@@ -1,0 +1,331 @@
+cohort	cell_type	n_algorithms	n_significant	n_positive	n_negative	median_rho	concordant	direction
+ACC	B cell	5	0	0	0	-0.03891941409808382	False	mixed
+ACC	Cancer associated fibroblast	3	2	1	1	0.19328156796063442	False	mixed
+ACC	Endothelial cell	3	2	1	1	-0.20411696784816247	False	mixed
+ACC	Macrophage	3	1	0	1	-0.07408288427514287	False	negative
+ACC	Monocyte	5	2	0	2	-0.2684579982361979	True	negative
+ACC	Myeloid dendritic cell	4	2	1	1	-0.20809223443511093	False	mixed
+ACC	NK cell	4	0	0	0	-0.06618948906877613	False	mixed
+ACC	Neutrophil	6	1	1	0	0.15797291438157623	False	positive
+ACC	T cell CD8+	7	4	0	4	-0.31349593966321493	True	negative
+ACC	T cell regulatory (Tregs)	4	0	0	0	-0.1645323299908805	False	mixed
+BLCA	B cell	5	1	1	0	0.03973681543160578	False	positive
+BLCA	Cancer associated fibroblast	3	2	2	0	0.1882253114834598	True	positive
+BLCA	Endothelial cell	3	2	0	2	-0.24420562910589272	True	negative
+BLCA	Macrophage	3	3	3	0	0.16866925754864198	True	positive
+BLCA	Monocyte	5	2	1	1	0.08528286400066794	False	mixed
+BLCA	Myeloid dendritic cell	4	3	2	1	0.1063778812511445	False	positive
+BLCA	NK cell	4	1	1	0	0.042574491082367785	False	positive
+BLCA	Neutrophil	6	4	4	0	0.18801985024700152	True	positive
+BLCA	T cell CD8+	7	3	2	1	0.07050606286190472	False	positive
+BLCA	T cell regulatory (Tregs)	4	3	1	2	-0.059553848564946214	False	negative
+BRCA	B cell	5	1	1	0	-0.007519422372790305	False	positive
+BRCA	Cancer associated fibroblast	3	1	0	1	-0.06925019084199573	False	negative
+BRCA	Endothelial cell	3	2	0	2	-0.15610349779727564	True	negative
+BRCA	Macrophage	3	1	1	0	0.01812786592479487	False	positive
+BRCA	Monocyte	5	1	1	0	0.015757350426068656	False	positive
+BRCA	Myeloid dendritic cell	4	2	2	0	0.08576635866718119	True	positive
+BRCA	NK cell	4	1	0	1	0.0015975379718274922	False	negative
+BRCA	Neutrophil	6	5	5	0	0.12219930475635654	True	positive
+BRCA	T cell CD8+	7	4	2	2	-0.025204526964057932	False	mixed
+BRCA	T cell regulatory (Tregs)	4	4	2	2	0.03383616979428081	False	mixed
+CESC	B cell	5	3	0	3	-0.13878174906159066	True	negative
+CESC	Cancer associated fibroblast	3	1	1	0	0.10901854509298824	False	positive
+CESC	Endothelial cell	3	1	1	0	0.06227057806051482	False	positive
+CESC	Macrophage	3	2	0	2	-0.2042169815148847	True	negative
+CESC	Monocyte	5	1	0	1	0.011589759607147226	False	negative
+CESC	Myeloid dendritic cell	4	3	0	3	-0.1517424072515311	True	negative
+CESC	NK cell	4	2	0	2	-0.16254149333435544	True	negative
+CESC	Neutrophil	6	1	1	0	0.02343110695564168	False	positive
+CESC	T cell CD8+	7	0	0	0	-0.06406471073228863	False	mixed
+CESC	T cell regulatory (Tregs)	4	0	0	0	-0.09319459544078468	False	mixed
+CHOL	B cell	5	0	0	0	0.05064757732323226	False	mixed
+CHOL	Cancer associated fibroblast	3	0	0	0	0.30237812966447547	False	mixed
+CHOL	Endothelial cell	3	0	0	0	-0.017927019004050092	False	mixed
+CHOL	Macrophage	3	0	0	0	-0.02395106980195509	False	mixed
+CHOL	Monocyte	5	1	1	0	-0.0483716135158295	False	positive
+CHOL	Myeloid dendritic cell	4	1	1	0	0.04154214274695041	False	positive
+CHOL	NK cell	4	1	0	1	-0.13204348970054394	False	negative
+CHOL	Neutrophil	6	0	0	0	0.13057382651433397	False	mixed
+CHOL	T cell CD8+	7	0	0	0	-0.044840127757349454	False	mixed
+CHOL	T cell regulatory (Tregs)	4	0	0	0	0.0009945364014723596	False	mixed
+COAD	B cell	5	0	0	0	-0.019150081585347516	False	mixed
+COAD	Cancer associated fibroblast	3	0	0	0	-0.0033787550745754957	False	mixed
+COAD	Endothelial cell	3	1	1	0	0.08768650516613388	False	positive
+COAD	Macrophage	3	2	0	2	-0.18661214982908858	True	negative
+COAD	Monocyte	4	1	0	1	-0.018906677011474853	False	negative
+COAD	Myeloid dendritic cell	4	2	0	2	-0.10273530756371807	True	negative
+COAD	NK cell	4	1	1	0	0.03140266007248223	False	positive
+COAD	Neutrophil	6	1	0	1	0.040617484977635454	False	negative
+COAD	T cell CD8+	7	0	0	0	-0.010555454569249008	False	mixed
+COAD	T cell regulatory (Tregs)	4	0	0	0	-0.037943915024102	False	mixed
+DLBC	B cell	5	0	0	0	0.15350274056923255	False	mixed
+DLBC	Cancer associated fibroblast	3	1	0	1	0.11826550900463834	False	negative
+DLBC	Endothelial cell	3	2	2	0	0.3906333064862722	True	positive
+DLBC	Macrophage	3	0	0	0	-0.060505786932535714	False	mixed
+DLBC	Monocyte	5	1	1	0	0.08049841145636218	False	positive
+DLBC	Myeloid dendritic cell	4	0	0	0	-0.10056054751589437	False	mixed
+DLBC	NK cell	4	0	0	0	0.08424862876715783	False	mixed
+DLBC	Neutrophil	6	1	1	0	0.13548367592501986	False	positive
+DLBC	T cell CD8+	7	0	0	0	0.1088459714726748	False	mixed
+DLBC	T cell regulatory (Tregs)	4	2	0	2	-0.22827693284547618	True	negative
+ESCA	B cell	5	0	0	0	-0.043955209763511124	False	mixed
+ESCA	Cancer associated fibroblast	3	1	1	0	0.12570180845064757	False	positive
+ESCA	Endothelial cell	3	2	0	2	-0.18203719644025612	True	negative
+ESCA	Macrophage	3	1	0	1	-0.15273497145024742	False	negative
+ESCA	Monocyte	5	1	0	1	-0.07665567507053672	False	negative
+ESCA	Myeloid dendritic cell	4	1	0	1	-0.0532220245822594	False	negative
+ESCA	NK cell	4	2	1	1	-0.12544262082235316	False	mixed
+ESCA	Neutrophil	6	1	1	0	-0.05436582827809451	False	positive
+ESCA	T cell CD8+	7	0	0	0	-0.11546869732417997	False	mixed
+ESCA	T cell regulatory (Tregs)	4	0	0	0	-0.08095133290635073	False	mixed
+GBM	B cell	5	2	2	0	0.036548144176439465	True	positive
+GBM	Cancer associated fibroblast	3	1	0	1	0.024355507063367247	False	negative
+GBM	Endothelial cell	3	1	1	0	0.19133350534183607	False	positive
+GBM	Macrophage	3	2	0	2	-0.4552882089916626	True	negative
+GBM	Monocyte	5	2	0	2	-0.19213888771435808	True	negative
+GBM	Myeloid dendritic cell	4	1	1	0	-0.008595047581159598	False	positive
+GBM	NK cell	4	2	1	1	0.02666503848101856	False	mixed
+GBM	Neutrophil	6	2	1	1	-0.09564203770512911	False	mixed
+GBM	T cell CD8+	7	2	0	2	-0.1100663862788605	True	negative
+GBM	T cell regulatory (Tregs)	4	0	0	0	0.060554275620715844	False	mixed
+HNSC	B cell	5	3	0	3	-0.10671393548646303	True	negative
+HNSC	Cancer associated fibroblast	3	1	0	1	-0.08777006609037961	False	negative
+HNSC	Endothelial cell	3	0	0	0	0.030211860359322176	False	mixed
+HNSC	Macrophage	3	2	0	2	-0.17310427361171246	True	negative
+HNSC	Monocyte	5	1	0	1	-0.06276258873832188	False	negative
+HNSC	Myeloid dendritic cell	4	3	0	3	-0.12821328474573593	True	negative
+HNSC	NK cell	4	1	0	1	-0.008911133521258602	False	negative
+HNSC	Neutrophil	6	1	1	0	0.00165665454492655	False	positive
+HNSC	T cell CD8+	7	6	0	6	-0.13990532416836682	True	negative
+HNSC	T cell regulatory (Tregs)	4	2	0	2	-0.10718962282496533	True	negative
+KICH	B cell	5	1	1	0	0.12219417281586697	False	positive
+KICH	Cancer associated fibroblast	3	0	0	0	0.09368141592362726	False	mixed
+KICH	Endothelial cell	3	1	0	1	-0.26388334803488683	False	negative
+KICH	Macrophage	3	1	1	0	-0.20196714677685876	False	positive
+KICH	Monocyte	5	0	0	0	-0.03296970701757552	False	mixed
+KICH	Myeloid dendritic cell	4	1	0	1	-0.0697756451294039	False	negative
+KICH	NK cell	4	0	0	0	-0.015914022848331596	False	mixed
+KICH	Neutrophil	6	2	2	0	0.12343891592405465	True	positive
+KICH	T cell CD8+	7	2	2	0	0.132428381534891	True	positive
+KICH	T cell regulatory (Tregs)	4	1	1	0	0.1575618112316813	False	positive
+KIRC	B cell	5	2	1	1	-0.03117599479670443	False	mixed
+KIRC	Cancer associated fibroblast	3	0	0	0	-0.05865169466372046	False	mixed
+KIRC	Endothelial cell	3	1	1	0	0.04397216116205374	False	positive
+KIRC	Macrophage	3	2	1	1	-0.05972787195697213	False	mixed
+KIRC	Monocyte	5	4	3	1	0.14266839973692116	False	positive
+KIRC	Myeloid dendritic cell	4	2	2	0	0.08657709105121743	True	positive
+KIRC	NK cell	4	2	0	2	-0.05023224971483536	True	negative
+KIRC	Neutrophil	6	3	3	0	0.13411619850004217	True	positive
+KIRC	T cell CD8+	7	5	0	5	-0.12169898346919215	True	negative
+KIRC	T cell regulatory (Tregs)	4	2	0	2	-0.09498801575940785	True	negative
+KIRP	B cell	5	3	2	1	0.14090899512373534	False	positive
+KIRP	Cancer associated fibroblast	3	2	2	0	0.14720262948657914	True	positive
+KIRP	Endothelial cell	3	3	2	1	0.2104918512451825	False	positive
+KIRP	Macrophage	3	2	0	2	-0.38853152370239374	True	negative
+KIRP	Monocyte	5	4	2	2	-0.08329469405751783	False	mixed
+KIRP	Myeloid dendritic cell	4	3	2	1	0.08903253669936917	False	positive
+KIRP	NK cell	4	1	0	1	-0.05595663899421974	False	negative
+KIRP	Neutrophil	6	2	2	0	-0.06276911091554338	True	positive
+KIRP	T cell CD8+	7	5	1	4	-0.1822804870913603	False	negative
+KIRP	T cell regulatory (Tregs)	4	0	0	0	0.05571002639885607	False	mixed
+LAML	B cell	4	1	1	0	0.15075856842496077	False	positive
+LAML	Cancer associated fibroblast	3	0	0	0	-0.008694030666344877	False	mixed
+LAML	Endothelial cell	3	2	2	0	0.20622128762886963	True	positive
+LAML	Macrophage	2	0	0	0	-0.09855485351648495	False	mixed
+LAML	Monocyte	5	4	0	4	-0.29167419257366295	True	negative
+LAML	Myeloid dendritic cell	3	0	0	0	0.06550269505146329	False	mixed
+LAML	NK cell	4	1	1	0	0.028763518573182073	False	positive
+LAML	Neutrophil	5	1	0	1	-0.11396276850716666	False	negative
+LAML	T cell CD8+	6	1	0	1	-0.08340847278148639	False	negative
+LAML	T cell regulatory (Tregs)	4	3	1	2	-0.14622836171752807	False	negative
+LGG	B cell	5	3	2	1	0.05554067823201048	False	positive
+LGG	Cancer associated fibroblast	3	0	0	0	0.026347499666560085	False	mixed
+LGG	Endothelial cell	3	1	1	0	-0.0040622314539631756	False	positive
+LGG	Macrophage	3	1	0	1	-0.10563096100842477	False	negative
+LGG	Monocyte	5	2	0	2	-0.07986710180984752	True	negative
+LGG	Myeloid dendritic cell	4	1	1	0	0.019914690200867214	False	positive
+LGG	NK cell	4	1	0	1	-0.07360311875859829	False	negative
+LGG	Neutrophil	5	1	1	0	0.054485054740135194	False	positive
+LGG	T cell CD8+	7	3	2	1	0.023121038527758576	False	positive
+LGG	T cell regulatory (Tregs)	4	2	1	1	-0.012631519594791918	False	mixed
+LIHC	B cell	5	3	3	0	0.16264226433257473	True	positive
+LIHC	Cancer associated fibroblast	3	1	1	0	0.07281101433083399	False	positive
+LIHC	Endothelial cell	3	2	1	1	0.012919872375764006	False	mixed
+LIHC	Macrophage	3	3	1	2	-0.1414094426050184	False	negative
+LIHC	Monocyte	5	2	2	0	0.04696194212551632	True	positive
+LIHC	Myeloid dendritic cell	4	2	2	0	0.11475957721566536	True	positive
+LIHC	NK cell	4	1	1	0	0.04617769126104697	False	positive
+LIHC	Neutrophil	6	1	1	0	0.026313682054877052	False	positive
+LIHC	T cell CD8+	7	1	1	0	0.04508434760941592	False	positive
+LIHC	T cell regulatory (Tregs)	4	2	2	0	0.09296108123711527	True	positive
+LUAD	B cell	5	5	0	5	-0.25313989693675626	True	negative
+LUAD	Cancer associated fibroblast	3	2	1	1	0.04200075671451543	False	mixed
+LUAD	Endothelial cell	3	0	0	0	0.09738455999390414	False	mixed
+LUAD	Macrophage	3	2	0	2	-0.20768199542833854	True	negative
+LUAD	Monocyte	5	1	0	1	-0.006657047031468284	False	negative
+LUAD	Myeloid dendritic cell	4	4	1	3	-0.15544356001137505	False	negative
+LUAD	NK cell	4	1	0	1	0.0033189348256660064	False	negative
+LUAD	Neutrophil	6	1	1	0	0.07016009019530446	False	positive
+LUAD	T cell CD8+	7	1	0	1	-0.07118157249585734	False	negative
+LUAD	T cell regulatory (Tregs)	4	2	0	2	-0.08760126091596795	True	negative
+LUSC	B cell	5	3	0	3	-0.24078172193352296	True	negative
+LUSC	Cancer associated fibroblast	3	1	0	1	-0.060894157627310076	False	negative
+LUSC	Endothelial cell	3	1	1	0	0.10809495093963079	False	positive
+LUSC	Macrophage	3	2	0	2	-0.32800259898341355	True	negative
+LUSC	Monocyte	5	3	0	3	-0.11071996861944275	True	negative
+LUSC	Myeloid dendritic cell	4	4	1	3	-0.19182486491062642	False	negative
+LUSC	NK cell	4	3	1	2	-0.11083957623766462	False	negative
+LUSC	Neutrophil	6	4	1	3	-0.11001947008093182	False	negative
+LUSC	T cell CD8+	7	6	0	6	-0.1957378613826287	True	negative
+LUSC	T cell regulatory (Tregs)	4	1	0	1	-0.0826301515330887	False	negative
+MESO	B cell	5	1	1	0	-0.03611720283835893	False	positive
+MESO	Cancer associated fibroblast	3	0	0	0	0.05496376408271078	False	mixed
+MESO	Endothelial cell	3	1	1	0	0.1626708598091441	False	positive
+MESO	Macrophage	3	0	0	0	-0.21133113284830837	False	mixed
+MESO	Monocyte	5	0	0	0	-0.061402289761222716	False	mixed
+MESO	Myeloid dendritic cell	4	0	0	0	0.13037688738902475	False	mixed
+MESO	NK cell	4	1	0	1	-0.12886622407700413	False	negative
+MESO	Neutrophil	6	0	0	0	0.07291690080776456	False	mixed
+MESO	T cell CD8+	7	0	0	0	0.008003278613333997	False	mixed
+MESO	T cell regulatory (Tregs)	4	1	1	0	0.0890930377161174	False	positive
+OV	B cell	5	2	1	1	-0.04657647818781971	False	mixed
+OV	Cancer associated fibroblast	3	0	0	0	-0.05789859723991261	False	mixed
+OV	Endothelial cell	3	2	2	0	0.27743707223885294	True	positive
+OV	Macrophage	3	2	0	2	-0.31458800220058375	True	negative
+OV	Monocyte	5	2	0	2	-0.07576256168375194	True	negative
+OV	Myeloid dendritic cell	4	4	1	3	-0.23783448341782634	False	negative
+OV	NK cell	4	2	1	1	-0.05883361754726104	False	mixed
+OV	Neutrophil	6	2	2	0	0.06961403061656737	True	positive
+OV	T cell CD8+	7	5	0	5	-0.22237924645381923	True	negative
+OV	T cell regulatory (Tregs)	4	0	0	0	0.021467708257939023	False	mixed
+PAAD	B cell	5	1	1	0	0.056376854910850135	False	positive
+PAAD	Cancer associated fibroblast	3	1	0	1	0.010048021180050942	False	negative
+PAAD	Endothelial cell	3	1	0	1	-0.12449625443324407	False	negative
+PAAD	Macrophage	3	0	0	0	-0.10347108705799624	False	mixed
+PAAD	Monocyte	5	1	0	1	-0.07136372508457256	False	negative
+PAAD	Myeloid dendritic cell	4	1	1	0	0.04425599950437355	False	positive
+PAAD	NK cell	4	0	0	0	-0.012425380490518126	False	mixed
+PAAD	Neutrophil	6	1	1	0	0.09720453315352934	False	positive
+PAAD	T cell CD8+	7	2	2	0	-0.013512553699494887	True	positive
+PAAD	T cell regulatory (Tregs)	4	0	0	0	-0.032256697141668574	False	mixed
+PCPG	B cell	5	2	2	0	0.10799503006024479	True	positive
+PCPG	Cancer associated fibroblast	3	1	0	1	-0.13131885543036237	False	negative
+PCPG	Endothelial cell	3	2	0	2	-0.3479110029374706	True	negative
+PCPG	Macrophage	3	1	1	0	0.03301229195888387	False	positive
+PCPG	Monocyte	5	2	1	1	0.11358904041816857	False	mixed
+PCPG	Myeloid dendritic cell	4	0	0	0	0.11569343392070644	False	mixed
+PCPG	NK cell	4	2	1	1	-0.06244737656601442	False	mixed
+PCPG	Neutrophil	6	2	2	0	0.03811106461274604	True	positive
+PCPG	T cell CD8+	7	2	2	0	0.06127033178671332	True	positive
+PCPG	T cell regulatory (Tregs)	4	1	1	0	0.07307304848743812	False	positive
+PRAD	B cell	5	1	1	0	0.021929119909121164	False	positive
+PRAD	Cancer associated fibroblast	3	2	0	2	-0.45810814333461675	True	negative
+PRAD	Endothelial cell	3	2	0	2	-0.24352596335811816	True	negative
+PRAD	Macrophage	3	1	0	1	0.008818686802032873	False	negative
+PRAD	Monocyte	5	2	1	1	0.04301848419647948	False	mixed
+PRAD	Myeloid dendritic cell	4	1	1	0	0.05490408371857856	False	positive
+PRAD	NK cell	4	2	1	1	-0.04178312564991789	False	mixed
+PRAD	Neutrophil	6	1	1	0	0.0845951048821657	False	positive
+PRAD	T cell CD8+	7	3	2	1	0.030075257083342386	False	positive
+PRAD	T cell regulatory (Tregs)	4	1	1	0	0.019448650457282734	False	positive
+READ	B cell	5	0	0	0	-0.07486394919353487	False	mixed
+READ	Cancer associated fibroblast	3	1	0	1	-0.18426576275089906	False	negative
+READ	Endothelial cell	3	0	0	0	0.17474136136423746	False	mixed
+READ	Macrophage	3	1	0	1	-0.13541164822559246	False	negative
+READ	Monocyte	4	0	0	0	0.10272289828377078	False	mixed
+READ	Myeloid dendritic cell	4	1	0	1	-0.10969692471719775	False	negative
+READ	NK cell	4	0	0	0	-0.00114531919912502	False	mixed
+READ	Neutrophil	6	0	0	0	0.028256361425127056	False	mixed
+READ	T cell CD8+	7	0	0	0	-0.009242817317230043	False	mixed
+READ	T cell regulatory (Tregs)	4	0	0	0	-0.0996021062972879	False	mixed
+SARC	B cell	5	1	0	1	-0.05405540005387397	False	negative
+SARC	Cancer associated fibroblast	3	1	1	0	0.08771673087089897	False	positive
+SARC	Endothelial cell	3	1	0	1	-0.1397952873460497	False	negative
+SARC	Macrophage	3	2	0	2	-0.24145717854467608	True	negative
+SARC	Monocyte	5	2	0	2	-0.03517268346564427	True	negative
+SARC	Myeloid dendritic cell	4	2	0	2	-0.17106946997460626	True	negative
+SARC	NK cell	4	1	0	1	-0.10615944261265478	False	negative
+SARC	Neutrophil	6	1	1	0	-0.014879832407155631	False	positive
+SARC	T cell CD8+	7	2	0	2	-0.09112423493032759	True	negative
+SARC	T cell regulatory (Tregs)	4	0	0	0	-0.07757207958476618	False	mixed
+SKCM	B cell	5	1	0	1	-0.0455904985144778	False	negative
+SKCM	Cancer associated fibroblast	3	1	1	0	0.05031368162513078	False	positive
+SKCM	Endothelial cell	3	1	0	1	-0.11184675916627554	False	negative
+SKCM	Macrophage	3	1	0	1	-0.16108058783658147	False	negative
+SKCM	Monocyte	5	0	0	0	-0.010242924709486097	False	mixed
+SKCM	Myeloid dendritic cell	4	2	1	1	-0.028890277427847486	False	mixed
+SKCM	NK cell	4	2	1	1	0.021356109724651365	False	mixed
+SKCM	Neutrophil	6	1	1	0	0.005128781033303349	False	positive
+SKCM	T cell CD8+	7	5	0	5	-0.3197888137315908	True	negative
+SKCM	T cell regulatory (Tregs)	4	1	1	0	0.022571759599563417	False	positive
+STAD	B cell	5	5	0	5	-0.1872090799604025	True	negative
+STAD	Cancer associated fibroblast	3	2	1	1	-0.02870434279078871	False	mixed
+STAD	Endothelial cell	3	1	0	1	-0.11817369965038123	False	negative
+STAD	Macrophage	3	0	0	0	-0.015729349156923762	False	mixed
+STAD	Monocyte	5	1	1	0	-0.07663282288815124	False	positive
+STAD	Myeloid dendritic cell	4	2	0	2	-0.07757427947554289	True	negative
+STAD	NK cell	4	1	1	0	0.020053074943194554	False	positive
+STAD	Neutrophil	6	2	2	0	0.05149363109201429	True	positive
+STAD	T cell CD8+	7	2	0	2	-0.027556366749370256	True	negative
+STAD	T cell regulatory (Tregs)	4	2	1	1	-0.0012829062412378772	False	mixed
+TGCT	B cell	5	1	0	1	-0.13233851318186782	False	negative
+TGCT	Cancer associated fibroblast	3	0	0	0	0.0740397506363445	False	mixed
+TGCT	Endothelial cell	3	1	1	0	-0.03386937230631778	False	positive
+TGCT	Macrophage	3	1	1	0	-0.16394875770233486	False	positive
+TGCT	Monocyte	5	1	0	1	-0.0071601858018880415	False	negative
+TGCT	Myeloid dendritic cell	4	2	0	2	-0.1630262431606617	True	negative
+TGCT	NK cell	4	0	0	0	-0.08866772919591953	False	mixed
+TGCT	Neutrophil	6	2	2	0	0.011283596662622613	True	positive
+TGCT	T cell CD8+	7	0	0	0	-0.11381019170016053	False	mixed
+TGCT	T cell regulatory (Tregs)	4	2	0	2	-0.10232938566250212	True	negative
+THCA	B cell	5	2	1	1	-0.030545134818321593	False	mixed
+THCA	Cancer associated fibroblast	3	1	0	1	-0.10691136815102392	False	negative
+THCA	Endothelial cell	3	2	1	1	0.016403534540546282	False	mixed
+THCA	Macrophage	3	3	1	2	-0.1397005061757669	False	negative
+THCA	Monocyte	5	3	0	3	-0.19768979467311792	True	negative
+THCA	Myeloid dendritic cell	4	2	1	1	-0.037061298329370294	False	mixed
+THCA	NK cell	4	2	0	2	-0.07950460100038131	True	negative
+THCA	Neutrophil	6	4	4	0	0.3016894884254673	True	positive
+THCA	T cell CD8+	7	6	2	4	-0.15226332187936686	False	negative
+THCA	T cell regulatory (Tregs)	4	2	1	1	-0.060474343753464506	False	mixed
+THYM	B cell	5	2	1	1	-0.08094218657116417	False	mixed
+THYM	Cancer associated fibroblast	3	1	1	0	0.121502781927913	False	positive
+THYM	Endothelial cell	3	1	1	0	0.20528137108693847	False	positive
+THYM	Macrophage	3	1	1	0	-0.014923740484183318	False	positive
+THYM	Monocyte	5	4	3	1	0.24792892556958396	False	positive
+THYM	Myeloid dendritic cell	4	2	1	1	-0.001193377460304089	False	mixed
+THYM	NK cell	4	1	1	0	-0.004107100784873478	False	positive
+THYM	Neutrophil	6	2	2	0	0.014496842451278455	True	positive
+THYM	T cell CD8+	7	1	0	1	-0.1319895158198864	False	negative
+THYM	T cell regulatory (Tregs)	4	1	0	1	-0.06953511912018458	False	negative
+UCEC	B cell	5	0	0	0	0.06735939059763303	False	mixed
+UCEC	Cancer associated fibroblast	3	2	1	1	0.10075430185462733	False	mixed
+UCEC	Endothelial cell	3	2	1	1	-0.12601150269178316	False	mixed
+UCEC	Macrophage	3	3	0	3	-0.23180683422039305	True	negative
+UCEC	Monocyte	5	1	0	1	-0.035338770188543527	False	negative
+UCEC	Myeloid dendritic cell	4	2	1	1	-0.0170620812385417	False	mixed
+UCEC	NK cell	4	1	0	1	-0.0369074756581701	False	negative
+UCEC	Neutrophil	6	1	1	0	-0.05448265153780415	False	positive
+UCEC	T cell CD8+	7	0	0	0	-0.09813238629029468	False	mixed
+UCEC	T cell regulatory (Tregs)	4	2	0	2	-0.16283275819783283	True	negative
+UCS	B cell	5	0	0	0	0.08973598060195948	False	mixed
+UCS	Cancer associated fibroblast	3	0	0	0	0.023949195060575842	False	mixed
+UCS	Endothelial cell	3	0	0	0	-0.16308564978557766	False	mixed
+UCS	Macrophage	3	0	0	0	-0.205999985723526	False	mixed
+UCS	Monocyte	5	0	0	0	-0.09740699069029402	False	mixed
+UCS	Myeloid dendritic cell	4	1	0	1	-0.24845904844383288	False	negative
+UCS	NK cell	4	0	0	0	-0.14210281588785104	False	mixed
+UCS	Neutrophil	6	0	0	0	-0.06345357526414305	False	mixed
+UCS	T cell CD8+	7	1	1	0	-0.1414171183928583	False	positive
+UCS	T cell regulatory (Tregs)	4	0	0	0	-0.08672311992675283	False	mixed
+UVM	B cell	5	1	1	0	0.19016207764161894	False	positive
+UVM	Cancer associated fibroblast	3	0	0	0	0.012270333890910649	False	mixed
+UVM	Endothelial cell	3	1	0	1	-0.2704716508349028	False	negative
+UVM	Macrophage	3	0	0	0	-0.1392391465931252	False	mixed
+UVM	Monocyte	5	0	0	0	0.036504972804686044	False	mixed
+UVM	Myeloid dendritic cell	4	2	0	2	-0.11106332832809043	True	negative
+UVM	NK cell	4	1	1	0	-0.019094322649283717	False	positive
+UVM	Neutrophil	6	1	1	0	0.05121575604533448	False	positive
+UVM	T cell CD8+	7	2	2	0	0.015890650839618714	True	positive
+UVM	T cell regulatory (Tregs)	4	0	0	0	0.002621839823339689	False	mixed

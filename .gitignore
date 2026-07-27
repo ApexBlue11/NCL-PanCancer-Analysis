@@ -1,0 +1,20 @@
+# Generated data — ~6 GB, fully reproducible via scripts/01_download.py
+data/
+
+# Run logs
+*.log
+
+# GSEA per-unit checkpoints (intermediate; T10 is the aggregated result)
+results/gsea_parts/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
