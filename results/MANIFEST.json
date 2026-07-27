@@ -21,7 +21,7 @@
       "sha256": "85a4a00d0f69bf6ba6766cf1b3ab2ed33de05bc50ac52ded78117c471ec0e786"
     }
   },
-  "generated_utc": "2026-07-27T19:11:45Z",
+  "generated_utc": "2026-07-27T19:32:58Z",
   "live_apis": {
     "CPTAC": {
       "accessed_via": "cptac Python package",
@@ -88,16 +88,16 @@
     "S1_cohorts_and_tissue_mapping.tsv": {
       "bytes": 1996,
       "cols": 7,
-      "modified_utc": "2026-07-27T18:58:09Z",
+      "modified_utc": "2026-07-27T19:31:45Z",
       "rows": 33,
       "sha256": "0fb3c0cc1fd368ebc30d1b0f8abbe9c36e491ae8e6a2ad4107f681938811e5a9"
     },
     "SUPPLEMENTARY_INDEX.md": {
-      "bytes": 1452,
+      "bytes": 2982,
       "cols": 1,
-      "modified_utc": "2026-07-27T18:58:09Z",
-      "rows": 14,
-      "sha256": "e6800fd75919af7d7cad19779733e1e3e446c95a463d2e3541c5550eb5736737"
+      "modified_utc": "2026-07-27T19:31:54Z",
+      "rows": 30,
+      "sha256": "7f96db381919fa5fbc830dee201ccefc311e79c7ec01edea209653fa312dad18"
     },
     "T10_gsea_per_cancer.tsv.gz": {
       "bytes": 4217324,

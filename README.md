@@ -87,8 +87,9 @@ Every script is idempotent (it skips work whose output already exists) so an int
 │                              with figures and tables embedded)
 ├── scripts/                   the pipeline
 └── results/
-    ├── tables/                all per-test results, plus SUPPLEMENTARY_INDEX.md
-    │                          mapping manuscript S-numbers to files
+    ├── tables/                all per-test results under working names
+    ├── supplementary/         S1-S11 as cited in the manuscript, plus a
+    │                          multi-sheet workbook (Supplementary_Tables_S1-S10.xlsx)
     ├── figures/               600 dpi PNG + vector PDF
     ├── MANIFEST.json/.md      input checksums, package versions, seeds
     └── MANUSCRIPT_NUMBERS.txt every number quoted in the manuscript
@@ -111,7 +112,7 @@ Every script is idempotent (it skips work whose output already exists) so an int
 | `08_cptac_validation.py` | CPTAC protein-level validation |
 | `09_manuscript_numbers.py` | Emit every manuscript number, traced to source |
 | `10_figures.py` | Publication figures at 600 dpi |
-| `12_supplementary_tables.py` | Supplementary Table S1 and the S-number index |
+| `12_supplementary_tables.py` | Supplementary Tables S1-S11 and the workbook |
 | `13_build_submission.py` | Manuscript copy with figures and tables embedded |
 | `11_manifest.py` | Input checksums, package versions, seeds |
 | `cohorts.py` / `data_io.py` / `statsutil.py` | Cohort definitions, loaders, statistics |

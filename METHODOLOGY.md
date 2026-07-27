@@ -97,7 +97,7 @@ scripts/
   08_cptac_validation.py     # CPTAC protein-level validation
   09_manuscript_numbers.py   # emit every number quoted in the manuscript
   10_figures.py              # publication figures at 600 dpi
-  12_supplementary_tables.py # Supplementary Table S1 and S-number index
+  12_supplementary_tables.py # Supplementary Tables S1-S11 + workbook
   13_build_submission.py     # manuscript with figures and tables embedded
   11_manifest.py             # input checksums, package versions, seeds
 
@@ -349,6 +349,7 @@ Other constraints:
 | `T10_gsea_per_cancer.tsv.gz` | Hallmark and Reactome enrichment | Figure 6 |
 | `MANUSCRIPT_NUMBERS.txt` | Every quoted number, traced to source | whole manuscript |
 | `S1_cohorts_and_tissue_mapping.tsv` | Cohort names, sample counts, TCGA-GTEx map | Supplementary Table S1 |
-| `SUPPLEMENTARY_INDEX.md` | Manuscript S-number to filename mapping | all supplementary |
+| `supplementary/S1..S11` | Supplementary tables as cited in the manuscript | all supplementary |
+| `supplementary/Supplementary_Tables_S1-S10.xlsx` | Multi-sheet workbook for journal upload | all supplementary |
 
 ---

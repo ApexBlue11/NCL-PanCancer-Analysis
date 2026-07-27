@@ -322,24 +322,24 @@ Nucleolin is broadly and reproducibly overexpressed across human cancers at both
 
 **Supplementary Table S1.** The 33 TCGA study abbreviations with full names, tumour and normal sample counts, and the TCGA–GTEx normal tissue mapping with match-quality annotation (`S1_cohorts_and_tissue_mapping.tsv`).
 
-**Supplementary Table S2.** NCL differential expression per cancer against both normal comparators (`T1_differential_expression.tsv`).
+**Supplementary Table S2.** NCL differential expression per cancer against both normal comparators (`S2_differential_expression.tsv`).
 
-**Supplementary Table S3.** Association between NCL expression and pathological stage (`T2_stage_association.tsv`).
+**Supplementary Table S3.** Association between NCL expression and pathological stage (`S3_stage_association.tsv`).
 
-**Supplementary Table S4.** Log-rank, univariate and multivariable Cox results with proportional-hazards diagnostics (`T3_survival.tsv`).
+**Supplementary Table S4.** Log-rank, univariate and multivariable Cox results with proportional-hazards diagnostics (`S4_survival.tsv`).
 
-**Supplementary Table S5.** All 3,910 cancer × cell type × algorithm infiltration tests (`T4_immune_infiltration.tsv`).
+**Supplementary Table S5.** All 3,910 cancer × cell type × algorithm infiltration tests (`S5_immune_infiltration.tsv`).
 
-**Supplementary Table S6.** Cross-algorithm concordance per cancer and canonical cell type (`T5_algorithm_concordance.tsv`).
+**Supplementary Table S6.** Cross-algorithm concordance per cancer and canonical cell type (`S6_algorithm_concordance.tsv`).
 
-**Supplementary Table S7.** Immune checkpoint correlations, unadjusted and adjusted for tumour purity and for proliferation (`T6_checkpoints.tsv`).
+**Supplementary Table S7.** Immune checkpoint correlations, unadjusted and adjusted for tumour purity and for proliferation (`S7_immune_checkpoints.tsv`).
 
-**Supplementary Table S8.** Immune, stromal and microenvironment scores, TMB, MSI, aneuploidy and fraction of genome altered (`T8_genomic_scores.tsv`).
+**Supplementary Table S8.** Immune, stromal and microenvironment scores, TMB, MSI, aneuploidy and fraction of genome altered (`S8_genomic_and_immune_scores.tsv`).
 
-**Supplementary Table S9.** CPTAC protein-level validation (`T7_cptac_validation.tsv`).
+**Supplementary Table S9.** CPTAC protein-level validation (`S9_cptac_validation.tsv`).
 
-**Supplementary Table S10.** Per-cancer GSEA against Hallmark and Reactome (`T10_gsea_per_cancer.tsv.gz`).
+**Supplementary Table S10.** Per-cancer GSEA against Hallmark and Reactome (`S10_gsea_per_cancer.tsv.gz`).
 
-**Supplementary Table S11.** Within-cancer Spearman correlation of NCL against every gene, the GSEA ranking statistic (`T9_ncl_gene_correlations.tsv.gz`).
+**Supplementary Table S11.** Within-cancer Spearman correlation of NCL against every gene, the GSEA ranking statistic (`S11_ncl_gene_correlations.tsv.gz`).
 
-File names in parentheses are the corresponding files in `results/tables/` of the accompanying repository; the same mapping is given in `results/tables/SUPPLEMENTARY_INDEX.md`.
+File names in parentheses are the corresponding files in `results/supplementary/` of the accompanying repository, which also contains all of S1 to S10 as a single multi-sheet workbook.
