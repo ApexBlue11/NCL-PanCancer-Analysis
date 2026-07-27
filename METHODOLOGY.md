@@ -8,10 +8,16 @@ This document is written so that a reader who has never seen the project can rep
 
 ## 1. Scope and purpose
 
-This is a revision of a previously submitted manuscript. The revision was prompted by peer review, and it does two things:
+This document specifies the computational workflow behind the pan-cancer NCL
+analysis. It is written so that a reader who has never seen the project can
+reproduce every number in the manuscript from public data.
 
-1. **Adds the analyses the reviewers required** — multiple-testing correction, multivariable survival modelling, multi-algorithm immune deconvolution, immune-checkpoint testing, GSEA, effect sizes with confidence intervals, and independent external validation.
-2. **Corrects errors in the previous version.** Several of the previous conclusions did not survive reanalysis. Section 8 lists every correction and the evidence for it.
+Each analysis step names the script that performs it, the inputs it consumes,
+the outputs it writes, and the manuscript element it supports. Where an
+analytical choice could reasonably have been made differently — which normal
+tissue to compare against, which deconvolution algorithm to trust, whether to
+adjust for proliferation — the reasoning is stated rather than left implicit,
+and Section 8 sets out the failure modes those choices are designed to avoid.
 
 The workflow is deliberately linear and file-based. Every step writes its output to disk before the next step reads it, so any step can be re-run in isolation, and an interrupted run resumes without repeating completed work.
 
@@ -251,65 +257,60 @@ All checks pass. The null-calibration and non-monotonic checks are the important
 
 ---
 
-## 8. Corrections to the previous version
+## 8. Analytical pitfalls this workflow is built to avoid
 
-Each correction below is reproducible from the tables named.
+Each of the following is a way a pan-cancer expression analysis can produce a
+confident but wrong answer. They are listed because the design decisions above
+only make sense once the failure mode is visible.
 
-### 8.1 Claims made without analysis
+**Reading stage-versus-normal annotations as a stage trend.** Several widely used
+web tools plot expression by stage and annotate each stage against *normal*
+tissue. Every stage can be significantly different from normal while expression
+is flat or falling across stages. Testing a trend requires a test on the ordered
+groups; see §5.3. Applied to NCL, a formal trend test supports a stage-ordered
+increase in 2 of 17 cancers, where reading the annotations would suggest most.
 
-The previous title and abstract asserted correlations between NCL and PD-L1, CTLA-4, TIM-3, IL-10 and TGF-β. **No checkpoint analysis existed** in that work — no method, no result, no figure. The title also cited CancerSEA, and the text cited cBioPortal and "genetic alterations"; neither analysis existed either.
+**Reporting univariate survival only.** Proliferation is embedded in grade and
+stage, so any proliferation-coupled gene will appear prognostic until those are
+modelled. For NCL the count of significant cancers falls from 6/24 to 1/24 for
+overall survival on adjustment (§5.4). Univariate screening is a reasonable first
+pass; presenting it as evidence of independent prognostic value is not.
 
-Resolution: the checkpoint analysis has now been performed (`T6`). Those specific associations are weak — CTLA-4 robust in 4 of 33 cancers, PD-1 in 3, TIM-3 in 9 — while **B7-H3 (CD276) is robust in 21 of 33** and is the finding that replaces them. CancerSEA references are removed. cBioPortal is now genuinely used, as the clinical-data source.
+**Choosing a deconvolution algorithm per result.** Algorithms disagree in sign for
+a third of cancer x cell-type combinations (§5.5). Selecting one algorithm per
+comparison — particularly a different one for each — is indistinguishable from
+selecting whichever gave the expected answer. Reporting concordance across all
+available algorithms costs nothing and is far more interpretable.
 
-### 8.2 Direction of dysregulation
+**Ignoring the proliferation confounder in immune correlations.** A gene that
+tracks proliferation will correlate with immune composition simply because
+proliferative tumours differ immunologically. Any immune association claimed for
+such a gene should survive explicit adjustment for a proliferation score
+(§5.5); for NCL this removes most classical checkpoint associations while
+leaving B7-H3, CD73 and CD39 intact.
 
-Previously reported as *reduced* in KIRP, READ and cutaneous melanoma. Re-analysis (`T1`): READ δ=+0.90 (q=2.2×10⁻³⁸) and SKCM δ=+0.65 (q=4.3×10⁻²⁵) are **elevated** against every available comparator. Only KIRP reproduces a reduction, and only against adjacent normals.
+**Treating the normal comparator as neutral.** Adjacent normal tissue is subject
+to field effects and surgical ischaemia; GTEx tissue is post-mortem and from
+different donors. For genes sensitive to metabolic state — which includes most
+of the ribosome-biogenesis machinery — the choice can reverse the direction of
+the result, as it does for NCL in kidney and thyroid (§5.1).
 
-### 8.3 Comparator dependence (new finding)
+**Correlating across pooled cancers.** Pan-cancer pooled correlations are
+dominated by tissue-of-origin differences in composition and describe no
+within-tumour relationship. All correlations here are computed within cancer
+(§5.6).
 
-In KIRP, KICH, KIRC and THCA the direction of NCL dysregulation **depends on the normal used**:
+**Ranking genes that are not expressed.** Genes undetected in a cohort produce
+degenerate correlations that GSEA orders arbitrarily; before filtering, ~10% of
+ranked genes carried tied statistics (§5.6).
 
-| Cancer | vs GTEx | vs adjacent normal |
-|---|---|---|
-| KIRP | +0.63 (q=5.1×10⁻⁸) | −0.29 (q=1.1×10⁻²) |
-| KICH | +0.19 (ns) | −0.80 (q=1.6×10⁻⁸) |
-| KIRC | +0.78 (q=7.3×10⁻¹²) | −0.07 (ns) |
-| THCA | +0.37 (q=4.8×10⁻¹⁷) | −0.27 (q=1.4×10⁻³) |
+**Assuming an assumption was checked.** The proportional-hazards diagnostic in
+this pipeline initially parsed nothing and silently reported zero tested models
+while appearing to succeed. It was caught by inspecting the output column, not
+by an error. Absence of an exception is not evidence that a check ran; §7
+therefore verifies the statistical utilities against reference implementations
+before they are used.
 
-CPTAC ccRCC protein (δ=+0.65) supports the GTEx direction in kidney.
-
-### 8.4 Stage progression
-
-Previously claimed as a progressive I–IV increase across eight cancers. A formal trend test (`T2`) supports **one** of them (LIHC). Two cancers show an increasing trend overall (LIHC, LUAD); one *decreases* (KIRC); 14 show none.
-
-### 8.5 Survival
-
-Previously reported adverse OS associations in HNSC, KICH, KIRP and LIHC. After covariate adjustment and FDR correction (`T3`):
-
-| Cancer | Previously | Adjusted result |
-|---|---|---|
-| KIRP | P=0.034 | **HR 2.12 (1.37–3.29), q=0.019 — retained** |
-| LIHC | P=1.4×10⁻⁶ | HR 1.32 (1.07–1.62), q=0.079 — not significant |
-| HNSC | P=0.0027 | HR 1.06 (0.91–1.25), q=0.72 — null |
-| KICH | P=0.017 | not modellable (too few events) |
-
-### 8.6 Mislabelled survival panels
-
-Three of the eight Kaplan–Meier panels in the previous version carried cohort sizes incompatible with the cancer named. Most clearly, the "KICH" panel showed 877 patients; TCGA KICH contains **65** primary tumours. The sizes correspond to pooled Human Protein Atlas cohorts (renal 877, lung 994) rather than individual TCGA projects.
-
-### 8.7 Cancer nomenclature
-
-The previous Table 1, presented as the TCGA cancer list, contained 39 entries for 33 projects, included entities that are not TCGA projects (AST, CML, HGG, NSCLC, ODG, MEL), used non-TCGA codes (HCC, RCC, CM, CCC, UEC, AML), and **defined ACC as adenoid cystic carcinoma when TCGA ACC is adrenocortical carcinoma**. It appears to have been a CancerSEA list. Corrected in `cohorts.py::FULL_NAME`.
-
-### 8.8 Tool misattribution
-
-Methods described GEPIA2 with GTEx normals; the figure was TIMER2's TCGA-only module. Consequence: PAAD rested on 4 adjacent normals. Now 167 GTEx pancreas samples.
-
-### 8.9 Enrichment analysis
-
-The previous miRNA analysis named miRDB in Methods and miRNet in Results and the legend; its figure was a miRNA–target network in which NCL was one node among many, presented as "NCL-interacting miRNAs"; and it assigned roles in EMT, metastasis and apoptosis to individual miRNAs that were never tested. It is **not replaced** — it supported no conclusion, and no substitute claim is made. GSEA replaces the pathway analysis.
-
----
 
 ## 9. What this workflow does not do
 
@@ -344,22 +345,3 @@ Other constraints:
 | `MANUSCRIPT_NUMBERS.txt` | Every quoted number, traced to source | whole manuscript |
 
 ---
-
-## 11. Reviewer comments addressed
-
-| Comment | Where addressed |
-|---|---|
-| R1① Correlation vs causation | Title changed to "association"; causal language removed throughout; §4.2 states explicitly that no regulatory relationship is demonstrated |
-| R1② Lacks experimental validation | **Partially.** CPTAC protein validation (§5.7); functional work explicitly not done (§9) |
-| R1③ Inconsistent analysis, cancer differences | Uniform 7-algorithm immune analysis with concordance reporting (§5.5); heterogeneity is now the paper's thesis |
-| R1④ Extent of AI use unclear | Explicit AI-use declaration in the manuscript |
-| R2① Novelty not justified | Reframed around findings that are new *and* corrective: B7-H3 association, comparator dependence, absence of independent prognostic value |
-| R2② No independent validation | CPTAC, 9 cohorts (§5.7) |
-| R2③ No multiple-testing correction | BH-FDR across every family (§6) |
-| R2④ Only univariate survival | Multivariable Cox with PH diagnostics (§5.4) |
-| R2⑤ Single deconvolution; no immune scores/TMB/MSI | 7 algorithms + concordance; immune/stromal/microenvironment scores, TMB, MSI, aneuploidy (§5.5) |
-| R2⑥ Mechanism speculative | Proliferation-adjusted analysis separates immune-specific from generic proliferation signal (§5.5) |
-| R2⑦ Enrichment lacks depth | Per-cancer GSEA on Hallmark and Reactome (§5.6) |
-| R2⑧ Heterogeneity insufficiently addressed | Central to the revised conclusions; universal-biomarker framing withdrawn |
-| R2⑨ No external datasets | CPTAC (§5.7) |
-| R2⑩ Figures and reporting | 600 dpi figures; effect sizes with CIs and sample sizes throughout |
