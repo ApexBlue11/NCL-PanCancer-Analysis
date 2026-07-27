@@ -66,6 +66,7 @@ python scripts/07_gsea.py --workers 4
 python scripts/08_cptac_validation.py
 python scripts/09_manuscript_numbers.py
 python scripts/10_figures.py
+python scripts/12_supplementary_tables.py
 python scripts/11_manifest.py
 ```
 
@@ -84,7 +85,8 @@ Every script is idempotent — it skips work whose output already exists — so 
 ├── manuscript/                manuscript and figures source
 ├── scripts/                   the pipeline
 └── results/
-    ├── tables/                T1–T10, all per-test results
+    ├── tables/                all per-test results, plus SUPPLEMENTARY_INDEX.md
+    │                          mapping manuscript S-numbers to files
     ├── figures/               600 dpi PNG + vector PDF
     ├── MANIFEST.json/.md      input checksums, package versions, seeds
     └── MANUSCRIPT_NUMBERS.txt every number quoted in the manuscript
@@ -107,6 +109,7 @@ Every script is idempotent — it skips work whose output already exists — so 
 | `08_cptac_validation.py` | CPTAC protein-level validation |
 | `09_manuscript_numbers.py` | Emit every manuscript number, traced to source |
 | `10_figures.py` | Publication figures at 600 dpi |
+| `12_supplementary_tables.py` | Supplementary Table S1 and the S-number index |
 | `11_manifest.py` | Input checksums, package versions, seeds |
 | `cohorts.py` / `data_io.py` / `statsutil.py` | Cohort definitions, loaders, statistics |
 | `test_statsutil.py` | Verification suite for `statsutil` |
