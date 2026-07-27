@@ -98,6 +98,7 @@ scripts/
   09_manuscript_numbers.py   # emit every number quoted in the manuscript
   10_figures.py              # publication figures at 600 dpi
   12_supplementary_tables.py # Supplementary Table S1 and S-number index
+  13_build_submission.py     # manuscript with figures and tables embedded
   11_manifest.py             # input checksums, package versions, seeds
 
   cohorts.py                 # cohort definitions, TCGA↔GTEx map, gene panels
