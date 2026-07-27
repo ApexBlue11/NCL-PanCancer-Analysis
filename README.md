@@ -25,7 +25,7 @@ This is consistent with, rather than contrary to, the immunohistochemical litera
 Elevated in 24 of 29 evaluable cancers (Cliff's delta up to +0.93), reduced in ovarian carcinoma. Confirmed in **7 of 9** independent CPTAC proteomic cohorts with paired adjacent normals (LUAD delta +0.99, LSCC +0.97, GBM +0.99, COAD +0.89, ccRCC +0.65, HNSCC +0.53). PDAC and UCEC did not confirm and are reported as such.
 
 **NCL is proliferation-coupled in every cancer.**
-GSEA on genes ranked by within-cancer correlation with NCL: the Hallmark G2M checkpoint signature is enriched in **32 of 32** cancers, MYC targets in 31, E2F targets in 30; Reactome results are dominated by mRNA processing, snRNP assembly and chromatin modification (31 of 32). No immune signature is consistently enriched — which is why every checkpoint association here is reported after explicit proliferation adjustment.
+GSEA on genes ranked by within-cancer correlation with NCL: the Hallmark G2M checkpoint signature is enriched in **32 of 32** cancers, MYC targets in 31, E2F targets in 30; Reactome results are dominated by mRNA processing, snRNP assembly and chromatin modification (31 of 32). No immune signature is consistently enriched, which is why every checkpoint association here is reported after explicit proliferation adjustment.
 
 ### Two methodological results
 
@@ -39,7 +39,7 @@ To our knowledge this is the first pan-cancer analysis of NCL (`nucleolin AND (p
 
 ### What this does not show
 
-Nothing here demonstrates that NCL *regulates* B7-H3, or that either is causal for the immune phenotype. These are correlational analyses of bulk tumour data. Establishing a regulatory relationship requires perturbation — NCL knockdown or overexpression with measurement of B7-H3 and immune composition — which this study does not perform. See [METHODOLOGY.md §9](METHODOLOGY.md).
+Nothing here demonstrates that NCL *regulates* B7-H3, or that either is causal for the immune phenotype. These are correlational analyses of bulk tumour data. Establishing a regulatory relationship requires perturbation (NCL knockdown or overexpression with measurement of B7-H3 and immune composition) which this study does not perform. See [METHODOLOGY.md §9](METHODOLOGY.md).
 
 ---
 
@@ -70,7 +70,7 @@ python scripts/12_supplementary_tables.py
 python scripts/11_manifest.py
 ```
 
-Every script is idempotent — it skips work whose output already exists — so an interrupted run resumes rather than restarting.
+Every script is idempotent (it skips work whose output already exists) so an interrupted run resumes rather than restarting.
 
 **Requirements:** Python 3.14, ~6 GB free disk, <1 GB RAM. Runtime ≈ 90 minutes, dominated by GSEA. All inputs are public; no credentials required.
 
@@ -105,7 +105,7 @@ Every script is idempotent — it skips work whose output already exists — so 
 | `06_immune.py` | Infiltration (7 algorithms), checkpoints, scores, TMB/MSI |
 | `07a_expression_filter.py` | Per-cohort expressed-gene filter for GSEA ranking |
 | `07_gsea_correlations.py` | NCL vs all genes, within each cancer |
-| `07_gsea.py` | Pre-ranked GSEA — resumable, parallel |
+| `07_gsea.py` | Pre-ranked GSEA, resumable, parallel |
 | `08_cptac_validation.py` | CPTAC protein-level validation |
 | `09_manuscript_numbers.py` | Emit every manuscript number, traced to source |
 | `10_figures.py` | Publication figures at 600 dpi |

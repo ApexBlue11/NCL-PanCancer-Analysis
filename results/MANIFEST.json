@@ -21,7 +21,7 @@
       "sha256": "85a4a00d0f69bf6ba6766cf1b3ab2ed33de05bc50ac52ded78117c471ec0e786"
     }
   },
-  "generated_utc": "2026-07-27T19:00:42Z",
+  "generated_utc": "2026-07-27T19:11:45Z",
   "live_apis": {
     "CPTAC": {
       "accessed_via": "cptac Python package",
