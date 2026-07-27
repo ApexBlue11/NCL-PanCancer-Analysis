@@ -18,3 +18,6 @@ venv/
 Thumbs.db
 .vscode/
 .idea/
+
+# Response letter is a private communication with the journal, not for publication
+manuscript/response_to_reviewers.*
