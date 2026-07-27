@@ -299,25 +299,50 @@ Nucleolin is broadly and reproducibly overexpressed across human cancers at both
 ![](../results/figures/Figure1_expression.png){width=100%}
 
 
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
+
 **Figure 2. Survival analysis.** (a) Hazard ratios per standard deviation of NCL for overall survival, from multivariable Cox models adjusted for age, sex, stage and grade, with 95% confidence intervals; each row is annotated with the number of patients and events entering that model. Red indicates an adverse association significant at q<0.05, blue a protective one, grey not significant. A dagger marks models in which the proportional-hazards assumption was violated for the NCL term (Schoenfeld residuals, p<0.05); those hazard ratios summarise a time-varying effect and should not be read as constant risk multipliers. (b) Univariate against covariate-adjusted hazard ratio for every cancer and endpoint; points below the diagonal are cancers whose apparent prognostic signal is attenuated by adjustment. (c) Number of cancers reaching q<0.05 before and after adjustment, by endpoint. Full per-model results, including the covariates available in each cohort, are in Table 3.
 
 ![](../results/figures/Figure2_survival.png){width=100%}
 
+
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
 
 **Figure 3. Immune infiltration and cross-algorithm concordance.** (a) For each of ten canonical cell types, the number of cancers in which the algorithms *concordantly* detect an association with NCL (≥2 algorithms significant at q<0.05 after purity adjustment, none disagreeing in sign), the number in which algorithms return significant associations of **opposite sign** for the same cell type in the same cancer, and the number with no or insufficient signal. Each bar totals the 33 cancers analysed. What differs between cell types is the number of algorithms available to resolve them, ranging from two to seven: lowest for cancer-associated fibroblast, endothelial cell and macrophage (at most three) and highest for CD8⁺ T cell (up to seven). The algorithm count for every cancer and cell type is given in Supplementary Table S6. (b) Correlation between NCL and the xCell immune, stromal and microenvironment scores in each cancer; cancers are ordered by microenvironment score. Points to the left of zero indicate that NCL-high tumours are immune- or stroma-poor. (c) Distribution of purity-adjusted partial Spearman correlations between NCL and infiltration estimates, separately for each of the seven deconvolution algorithms, pooled over all cancers and cell types; the spread illustrates how much the estimate depends on the algorithm chosen.
 
 ![](../results/figures/Figure3_immune.png){width=100%}
 
 
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
+
 **Figure 4. Immune checkpoint associations.** (a) Number of the 33 cancers in which each molecule shows a *robust* association with NCL, defined as significant at q<0.05 after **both** tumour-purity and proliferation adjustment; bars extend right for positive and left for negative associations, so a molecule with bars on both sides is inconsistent in direction between cancers. Cancers not counted are those not reaching significance. (b) Per-cancer detail for CD276 (B7-H3), showing the same correlation unadjusted, purity-adjusted and proliferation-adjusted, with cohort size for each cancer; the ordering makes visible that adjustment attenuates but does not abolish the association. Cancers in which B7-H3 was not robust are named in Section 3.6.
 
 ![](../results/figures/Figure4_checkpoints.png){width=100%}
 
 
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
+
 **Figure 5. Independent proteomic validation in CPTAC.** Cliff's delta with 95% bootstrap confidence intervals for NCL protein abundance in tumour versus adjacent normal tissue across nine CPTAC cohorts, with numbers of tumours, normals and matched pairs annotated. Cohorts discordant with the transcript-level result (PDAC, UCEC) are indicated.
 
 ![](../results/figures/Figure5_cptac.png){width=100%}
 
+
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
 
 **Figure 6. Pathway associations.** Normalised enrichment scores from pre-ranked GSEA of genes ranked by within-cancer correlation with NCL, for Hallmark and Reactome gene sets showing consistent direction across cancers. The sixteen most frequently significant direction-consistent gene sets are shown for each collection. The fraction beside each pathway (e.g. 32/32, 26/32) is the number of the 32 analysable cancers in which that gene set reached q<0.05, out of the total tested; bar length is the median NES across the cancers in which it was significant. Cancers not counted are those in which the set did not reach significance, not those with opposite-direction enrichment; no gene set shown here was significantly enriched in opposing directions in different cancers. Section 3.9 names the exceptions for the near-complete sets, and the full per-cancer results are in Supplementary Table S10.
 
@@ -359,6 +384,11 @@ Nucleolin is broadly and reproducibly overexpressed across human cancers at both
 | OV | 419 | 88 | -0.26 (-0.36, -0.17) | 0.0001 | good | n/a | n/a |
 
 
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
+
 **Table 2.** Association between NCL expression and pathological stage: per-stage sample sizes, Kruskal–Wallis and Jonckheere–Terpstra statistics, and late-versus-early effect sizes.
 
 | Cancer | n | I / II / III / IV | Kruskal-Wallis q | Trend z | Trend q | Stage IV vs I delta (95% CI) |
@@ -382,35 +412,45 @@ Nucleolin is broadly and reproducibly overexpressed across human cancers at both
 | ESCA | 156 | 18 / 75 / 54 / 9 | 0.7103 | -0.01 | 0.9933 | +0.20 (-0.30, +0.67) |
 
 
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
+
 **Table 3.** Multivariable Cox regression of NCL against overall, disease-specific and progression-free survival: hazard ratios per standard deviation with 95% CI, covariates included, numbers of patients and events, FDR-adjusted p-values, and proportional-hazards test results.
 
 | Cancer | n | Events | Adjusted HR (95% CI) | Adjusted q | Univariate q | Covariates | PH violated |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| ACC | 74 | 25 | 2.16 (1.10, 4.24) | 0.1184 | 0.0441 | age+sex+stage | no |
-| KIRP | 249 | 38 | 2.12 (1.37, 3.29) | 0.0187 | 0.0151 | age+sex+stage | no |
+| ACC | 74 | 25 | 2.16 (1.10, 4.24) | 0.1184 | 0.0441 | age, sex, stage | no |
+| KIRP | 249 | 38 | 2.12 (1.37, 3.29) | 0.0187 | 0.0151 | age, sex, stage | no |
 | PRAD | 491 | 10 | 1.52 (0.78, 2.95) | 0.4058 | 0.4819 | age | no |
-| SKCM | 71 | 24 | 1.38 (0.85, 2.22) | 0.3946 | 0.4819 | age+sex+stage | no |
-| LIHC | 335 | 113 | 1.32 (1.07, 1.62) | 0.0789 | 0.0061 | age+sex+stage+grade | yes |
-| BLCA | 402 | 176 | 1.27 (1.06, 1.52) | 0.0789 | 0.0487 | age+sex+stage | no |
-| PAAD | 172 | 91 | 1.26 (0.98, 1.62) | 0.2668 | 0.0441 | age+sex+stage+grade | no |
-| CESC | 254 | 58 | 1.25 (0.91, 1.71) | 0.3946 | 0.4819 | age+grade | no |
-| BRCA | 1046 | 143 | 1.23 (1.04, 1.46) | 0.0995 | 0.4819 | age+sex+stage | no |
-| THCA | 493 | 16 | 1.18 (0.70, 1.99) | 0.7840 | 0.6460 | age+sex+stage | no |
-| LUAD | 483 | 177 | 1.13 (0.97, 1.33) | 0.3650 | 0.0456 | age+sex+stage | yes |
-| SARC | 252 | 96 | 1.10 (0.88, 1.39) | 0.6652 | 0.5690 | age+sex | no |
-| ESCA | 156 | 63 | 1.08 (0.82, 1.42) | 0.7840 | 0.9989 | age+sex+stage | no |
-| HNSC | 424 | 181 | 1.06 (0.91, 1.25) | 0.7197 | 0.4819 | age+sex+stage+grade | no |
-| READ | 82 | 13 | 1.06 (0.57, 1.96) | 0.9320 | 0.3817 | age+sex+stage | no |
-| LGG | 502 | 122 | 1.04 (0.85, 1.28) | 0.8127 | 0.1746 | age+sex+grade | no |
-| MESO | 85 | 73 | 1.03 (0.76, 1.39) | 0.9320 | 0.8915 | age+sex+stage | no |
-| LUSC | 466 | 199 | 0.99 (0.86, 1.14) | 0.9320 | 0.9513 | age+sex+stage | no |
-| CHOL | 36 | 18 | 0.98 (0.59, 1.62) | 0.9320 | 0.8915 | age+sex+stage+grade | no |
-| OV | 343 | 210 | 0.95 (0.81, 1.13) | 0.7840 | 0.4819 | age+grade | no |
-| COAD | 266 | 62 | 0.95 (0.75, 1.21) | 0.8127 | 0.8465 | age+sex+stage | no |
-| STAD | 367 | 145 | 0.90 (0.76, 1.06) | 0.3946 | 0.4819 | age+sex+stage+grade | no |
-| KIRC | 497 | 165 | 0.89 (0.76, 1.03) | 0.3650 | 0.0501 | age+sex+stage+grade | yes |
-| UCEC | 169 | 31 | 0.78 (0.56, 1.09) | 0.3781 | 0.5690 | age+grade | no |
+| SKCM | 71 | 24 | 1.38 (0.85, 2.22) | 0.3946 | 0.4819 | age, sex, stage | no |
+| LIHC | 335 | 113 | 1.32 (1.07, 1.62) | 0.0789 | 0.0061 | age, sex, stage, grade | yes |
+| BLCA | 402 | 176 | 1.27 (1.06, 1.52) | 0.0789 | 0.0487 | age, sex, stage | no |
+| PAAD | 172 | 91 | 1.26 (0.98, 1.62) | 0.2668 | 0.0441 | age, sex, stage, grade | no |
+| CESC | 254 | 58 | 1.25 (0.91, 1.71) | 0.3946 | 0.4819 | age, grade | no |
+| BRCA | 1046 | 143 | 1.23 (1.04, 1.46) | 0.0995 | 0.4819 | age, sex, stage | no |
+| THCA | 493 | 16 | 1.18 (0.70, 1.99) | 0.7840 | 0.6460 | age, sex, stage | no |
+| LUAD | 483 | 177 | 1.13 (0.97, 1.33) | 0.3650 | 0.0456 | age, sex, stage | yes |
+| SARC | 252 | 96 | 1.10 (0.88, 1.39) | 0.6652 | 0.5690 | age, sex | no |
+| ESCA | 156 | 63 | 1.08 (0.82, 1.42) | 0.7840 | 0.9989 | age, sex, stage | no |
+| HNSC | 424 | 181 | 1.06 (0.91, 1.25) | 0.7197 | 0.4819 | age, sex, stage, grade | no |
+| READ | 82 | 13 | 1.06 (0.57, 1.96) | 0.9320 | 0.3817 | age, sex, stage | no |
+| LGG | 502 | 122 | 1.04 (0.85, 1.28) | 0.8127 | 0.1746 | age, sex, grade | no |
+| MESO | 85 | 73 | 1.03 (0.76, 1.39) | 0.9320 | 0.8915 | age, sex, stage | no |
+| LUSC | 466 | 199 | 0.99 (0.86, 1.14) | 0.9320 | 0.9513 | age, sex, stage | no |
+| CHOL | 36 | 18 | 0.98 (0.59, 1.62) | 0.9320 | 0.8915 | age, sex, stage, grade | no |
+| OV | 343 | 210 | 0.95 (0.81, 1.13) | 0.7840 | 0.4819 | age, grade | no |
+| COAD | 266 | 62 | 0.95 (0.75, 1.21) | 0.8127 | 0.8465 | age, sex, stage | no |
+| STAD | 367 | 145 | 0.90 (0.76, 1.06) | 0.3946 | 0.4819 | age, sex, stage, grade | no |
+| KIRC | 497 | 165 | 0.89 (0.76, 1.03) | 0.3650 | 0.0501 | age, sex, stage, grade | yes |
+| UCEC | 169 | 31 | 0.78 (0.56, 1.09) | 0.3781 | 0.5690 | age, grade | no |
 
+
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
 
 **Table 4.** NCL correlations with immune, stromal and microenvironment scores, tumour mutational burden, MANTIS MSI score, aneuploidy score and fraction of genome altered.
 
@@ -424,6 +464,11 @@ Nucleolin is broadly and reproducibly overexpressed across human cancers at both
 | Aneuploidy | 33 | 7 | 5 | 2 | +0.044 | -0.18 to +0.24 |
 | FGA | 33 | 11 | 9 | 2 | +0.118 | -0.14 to +0.26 |
 
+
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
 
 **Table 5.** NCL correlations with immune checkpoint and immunomodulatory genes, unadjusted and adjusted for tumour purity and proliferation.
 
@@ -445,6 +490,11 @@ Nucleolin is broadly and reproducibly overexpressed across human cancers at both
 | CTLA-4 | CTLA4 | +0.017 | 10 | 4 | 1 / 3 | -0.25 to +0.15 |
 | PD-1 | PDCD1 | +0.033 | 9 | 3 | 1 / 2 | -0.27 to +0.12 |
 
+
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
 
 **Table 6.** Independent validation of NCL protein abundance in nine CPTAC cohorts.
 

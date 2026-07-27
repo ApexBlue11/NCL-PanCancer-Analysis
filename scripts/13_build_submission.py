@@ -19,6 +19,14 @@ MS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "manuscr
 SRC = os.path.join(MS_DIR, "manuscript_revised.md")
 DEST = os.path.join(MS_DIR, "manuscript_submission.md")
 
+# Raw OpenXML page break. Pandoc silently discards \newpage when the output
+# is DOCX, so the break has to be emitted as literal WordprocessingML.
+PAGEBREAK = (
+    "\n```{=openxml}\n"
+    '<w:p><w:r><w:br w:type="page"/></w:r></w:p>\n'
+    "```\n\n"
+)
+
 # Figure number -> (file, keyword that must appear in that figure's legend)
 FIGURES = {
     1: ("Figure1_expression.png", "expression"),
@@ -101,7 +109,9 @@ def table3():
             "Adjusted HR (95% CI)": "%.2f (%.2f, %.2f)" % (r.adj_HR, r.adj_HR_lo, r.adj_HR_hi),
             "Adjusted q": fmt_q(r.adj_q),
             "Univariate q": fmt_q(r.uni_q),
-            "Covariates": r.adj_covariates.replace("male", "sex"),
+            # Comma separation lets the cell wrap between words; "+" joins
+            # wrap mid-word ("age+sex+stage+g rade") in the rendered table.
+            "Covariates": r.adj_covariates.replace("male", "sex").replace("+", ", "),
             "PH violated": "yes" if (np.isfinite(ph) and ph < 0.05) else "no",
         })
     return pd.DataFrame(rows)
@@ -181,8 +191,11 @@ def main():
         assert keyword.lower() in legend_text.lower(), (
             "Figure %d legend does not mention '%s'; figure/legend mapping may be wrong"
             % (num, keyword))
+        # Page break before each legend so a figure is never split from its
+        # caption, and never shares a page with the next figure.
+        brk = "" if num == 1 else PAGEBREAK
         img = "\n\n![](../results/figures/%s){width=100%%}\n" % fname
-        legends = legends.replace(legend_text, legend_text.rstrip() + img)
+        legends = legends.replace(legend_text, brk + legend_text.rstrip() + img)
     t = t[:t.index("## Figure legends")] + legends + t[t.index("## Tables"):]
 
     # ---- 2. replace each table caption with caption + rendered table
@@ -192,7 +205,9 @@ def main():
         m = re.search(r"(\*\*Table %d\.\*\*[^\n]*)" % num, tabsec)
         assert m, "no caption found for Table %d" % num
         cap = m.group(1)
-        tabsec = tabsec.replace(cap, cap + "\n\n" + md_table(df) + "\n")
+        # Page break before each caption keeps a table with its caption.
+        brk = "" if num == 1 else PAGEBREAK
+        tabsec = tabsec.replace(cap, brk + cap + "\n\n" + md_table(df) + "\n")
         print("  Table %d: %d rows x %d cols" % (num, len(df), df.shape[1]))
     t = t[:t.index("## Tables")] + tabsec
 
