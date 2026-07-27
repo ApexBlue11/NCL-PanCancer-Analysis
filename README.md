@@ -66,6 +66,7 @@ python scripts/07_gsea.py --workers 4
 python scripts/08_cptac_validation.py
 python scripts/09_manuscript_numbers.py
 python scripts/10_figures.py
+python scripts/11_manifest.py
 ```
 
 Every script is idempotent — it skips work whose output already exists — so an interrupted run resumes rather than restarting.
@@ -85,6 +86,7 @@ Every script is idempotent — it skips work whose output already exists — so 
 └── results/
     ├── tables/                T1–T10, all per-test results
     ├── figures/               600 dpi PNG + vector PDF
+    ├── MANIFEST.json/.md      input checksums, package versions, seeds
     └── MANUSCRIPT_NUMBERS.txt every number quoted in the manuscript
 ```
 
@@ -105,6 +107,7 @@ Every script is idempotent — it skips work whose output already exists — so 
 | `08_cptac_validation.py` | CPTAC protein-level validation |
 | `09_manuscript_numbers.py` | Emit every manuscript number, traced to source |
 | `10_figures.py` | Publication figures at 600 dpi |
+| `11_manifest.py` | Input checksums, package versions, seeds |
 | `cohorts.py` / `data_io.py` / `statsutil.py` | Cohort definitions, loaders, statistics |
 | `test_statsutil.py` | Verification suite for `statsutil` |
 
@@ -144,6 +147,7 @@ Survival endpoints are the curated TCGA Clinical Data Resource definitions (Liu 
 - Each script writes to disk before the next reads, so any step can be re-run in isolation.
 - `09_manuscript_numbers.py` regenerates every number quoted in the manuscript from the result tables, so a changed analysis surfaces stale text rather than leaving it silently wrong.
 - Environment pinned in `requirements.txt`.
+- `11_manifest.py` writes `results/MANIFEST.json` and `MANIFEST.md` recording the SHA-256, size and retrieval date of every input file, the shape and checksum of every result table, and the resolved version of every package that affects a number. This matters because the sources are not archival: UCSC Xena, TIMER2.0 and MSigDB reissue files at stable URLs, cBioPortal serves a live API, and `cptac` downloads at run time. Diffing two manifests localises any disagreement to a specific input, package version or code change.
 
 ## Citation
 

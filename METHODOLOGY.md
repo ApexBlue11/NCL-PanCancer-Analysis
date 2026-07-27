@@ -47,6 +47,8 @@ pip install -r requirements.txt
 
 **Determinism.** All stochastic procedures are seeded: bootstrap resampling for Cliff's delta confidence intervals (`seed=0`, 2,000 resamples) and GSEA permutation (`seed=0`, 1,000 permutations). Re-running the pipeline on the same inputs reproduces the same numbers.
 
+**Inputs are not archival, so they are checksummed.** UCSC Xena, TIMER2.0 and MSigDB reissue files at stable URLs; cBioPortal serves a live API with no version pin; the `cptac` package downloads data at run time. `11_manifest.py` therefore records the SHA-256, byte size and retrieval date of every input, the shape and checksum of every result table, and the resolved version of every package affecting a numeric result, into `results/MANIFEST.json` and `MANIFEST.md`. If a future run disagrees with the published numbers, diffing two manifests localises the cause to an input file, a package version or the code. This is the difference between "the code runs" and "the code reproduces these numbers".
+
 **Resource requirements.** Peak disk use is approximately 6 GB, of which 4.6 GB is the expression matrix. Peak memory is under 1 GB — the pipeline is written to stream rather than load, because it was developed on a machine with limited free RAM (see §4.1). Total runtime is roughly 90 minutes, dominated by GSEA.
 
 ---
@@ -95,6 +97,7 @@ scripts/
   08_cptac_validation.py     # CPTAC protein-level validation
   09_manuscript_numbers.py   # emit every number quoted in the manuscript
   10_figures.py              # publication figures at 600 dpi
+  11_manifest.py             # input checksums, package versions, seeds
 
   cohorts.py                 # cohort definitions, TCGA↔GTEx map, gene panels
   data_io.py                 # shared loaders

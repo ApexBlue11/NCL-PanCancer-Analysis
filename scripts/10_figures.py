@@ -216,8 +216,7 @@ def figure3():
                 label="no/insufficient signal")
         ax.set_yticks(y); ax.set_yticklabels(agg.index, fontsize=6)
         ax.set_xlabel("number of cancers")
-        ax.set_title("a   Cross-algorithm concordance by cell type",
-                     loc="left", fontweight="bold", fontsize=9)
+        ax.set_title("a", loc="left", fontweight="bold", fontsize=10)
         ax.legend(fontsize=5.4, frameon=False, loc="lower right")
 
     # (b) immune / stromal / microenvironment scores
