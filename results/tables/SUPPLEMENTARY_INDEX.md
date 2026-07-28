@@ -17,6 +17,7 @@ Supplementary tables as referred to by S-number in the manuscript.
 | **S9** | `S9_cptac_validation.tsv` | 10 | 19 | Independent CPTAC protein-level validation across nine cohorts, rank-sum and paired tests |
 | **S10** | `S10_gsea_per_cancer.tsv.gz` | 32,491 | 13 | Per-cancer pre-ranked GSEA against Hallmark and Reactome collections |
 | **S11** | `S11_ncl_gene_correlations.tsv.gz` | 58,581 | 33 | Within-cancer Spearman correlation of NCL against every gene; the GSEA ranking statistic |
+| **S10a** | `S10a_pathways_named_in_text.tsv` | 20 | 12 | Extract of S10 giving the statistics for every pathway named in Results 3.9, including the 4 that are not among the sixteen gene sets displayed in Figure 6 |
 
 ## Working names
 

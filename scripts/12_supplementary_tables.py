@@ -65,7 +65,85 @@ S_TABLES = [
 ]
 
 # S11 is excluded from the workbook on size grounds.
-IN_WORKBOOK = {s for s, *_ in S_TABLES if s != "S11"}
+IN_WORKBOOK = {s for s, *_ in S_TABLES if s != "S11"} | {"S10a"}
+
+
+# Pathways named in Results 3.9, with the wording used in the text. Figure 6
+# shows only the sixteen most frequently significant direction-consistent gene
+# sets per collection, and 23 Reactome pathways tie at 31/32, so several
+# pathways named in the text do not appear in the figure. This extract lets a
+# reader check every named claim without searching 32,491 rows of S10.
+NAMED_PATHWAYS = [
+    ("Hallmark", "G2M checkpoint", "HALLMARK_G2M_CHECKPOINT"),
+    ("Hallmark", "MYC targets V1", "HALLMARK_MYC_TARGETS_V1"),
+    ("Hallmark", "mitotic spindle", "HALLMARK_MITOTIC_SPINDLE"),
+    ("Hallmark", "E2F targets", "HALLMARK_E2F_TARGETS"),
+    ("Hallmark", "MYC targets V2", "HALLMARK_MYC_TARGETS_V2"),
+    ("Hallmark", "unfolded protein response", "HALLMARK_UNFOLDED_PROTEIN_RESPONSE"),
+    ("Hallmark", "mTORC1 signalling", "HALLMARK_MTORC1_SIGNALING"),
+    ("Hallmark", "PI3K-AKT-mTOR signalling", "HALLMARK_PI3K_AKT_MTOR_SIGNALING"),
+    ("Hallmark", "DNA repair", "HALLMARK_DNA_REPAIR"),
+    ("Hallmark", "TGF-beta signalling", "HALLMARK_TGF_BETA_SIGNALING"),
+    ("Hallmark", "coagulation", "HALLMARK_COAGULATION"),
+    ("Reactome", "transport of mature transcripts to the cytoplasm",
+     "REACTOME_TRANSPORT_OF_MATURE_TRANSCRIPT_TO_CYTOPLASM"),
+    ("Reactome", "processing of capped intron-containing pre-mRNA",
+     "REACTOME_PROCESSING_OF_CAPPED_INTRON_CONTAINING_PRE_MRNA"),
+    ("Reactome", "snRNP assembly", "REACTOME_SNRNP_ASSEMBLY"),
+    ("Reactome", "nuclear tRNA processing", "REACTOME_TRNA_PROCESSING_IN_THE_NUCLEUS"),
+    ("Reactome", "gene silencing by RNA", "REACTOME_GENE_SILENCING_BY_RNA"),
+    ("Reactome", "SUMOylation of RNA-binding proteins",
+     "REACTOME_SUMOYLATION_OF_RNA_BINDING_PROTEINS"),
+    ("Reactome", "SUMOylation of DNA-repair proteins",
+     "REACTOME_SUMOYLATION_OF_DNA_DAMAGE_RESPONSE_AND_REPAIR_PROTEINS"),
+    ("Reactome", "chromatin-modifying enzymes", "REACTOME_CHROMATIN_MODIFYING_ENZYMES"),
+    ("Reactome", "histone acetylation", "REACTOME_HATS_ACETYLATE_HISTONES"),
+]
+
+
+def build_named_pathways():
+    """Filtered view of S10 covering every pathway named in Results 3.9."""
+    src = os.path.join(D.TABLES, "T10_gsea_per_cancer.tsv.gz")
+    if not os.path.exists(src):
+        return None
+    g = pd.read_csv(src, sep="\t", low_memory=False)
+    qc = "FDR_q-val" if "FDR_q-val" in g.columns else "FDR_qval"
+    g[qc] = pd.to_numeric(g[qc], errors="coerce")
+    g["NES"] = pd.to_numeric(g["NES"], errors="coerce")
+    sig = g[(g[qc] < 0.05) & g["NES"].notna()]
+
+    # Which gene sets Figure 6 actually displays: top 16 by frequency among
+    # direction-consistent sets, per collection.
+    shown = set()
+    for coll in g.collection.unique():
+        s = sig[sig.collection == coll]
+        agg = s.groupby("Term").agg(n=("cohort", "nunique"),
+                                    up=("NES", lambda v: (v > 0).sum()),
+                                    dn=("NES", lambda v: (v < 0).sum()))
+        cons = agg[(agg.up == 0) | (agg.dn == 0)].sort_values("n", ascending=False)
+        shown |= set(cons.head(16).index)
+
+    rows = []
+    for coll, label, term in NAMED_PATHWAYS:
+        total = g[g.collection == coll].cohort.nunique()
+        s = sig[sig.Term == term]
+        allc = set(g[(g.collection == coll)].cohort.unique())
+        hit = set(s.cohort.unique())
+        rows.append({
+            "collection": coll,
+            "name_in_text": label,
+            "gene_set": term,
+            "n_significant": len(hit),
+            "n_cancers_tested": total,
+            "n_positive": int((s.NES > 0).sum()),
+            "n_negative": int((s.NES < 0).sum()),
+            "median_NES": round(float(s.NES.median()), 3) if len(s) else None,
+            "min_NES": round(float(s.NES.min()), 3) if len(s) else None,
+            "max_NES": round(float(s.NES.max()), 3) if len(s) else None,
+            "cancers_not_significant": ", ".join(sorted(allc - hit)) or "none",
+            "shown_in_Figure_6": "yes" if term in shown else "no",
+        })
+    return pd.DataFrame(rows)
 
 
 def build_s1():
@@ -112,6 +190,20 @@ def main():
         written.append((snum, os.path.basename(dest), len(df), df.shape[1], desc))
         print("  %-4s %-38s %7d rows x %2d cols" % (snum, os.path.basename(dest),
                                                     len(df), df.shape[1]))
+
+    # ---- extract of S10 covering the pathways named in the Results text
+    named = build_named_pathways()
+    if named is not None:
+        dest = os.path.join(SUPP, "S10a_pathways_named_in_text.tsv")
+        named.to_csv(dest, sep="\t", index=False)
+        frames["S10a"] = named
+        n_hidden = int((named.shown_in_Figure_6 == "no").sum())
+        written.append(("S10a", os.path.basename(dest), len(named), named.shape[1],
+                        "Extract of S10 giving the statistics for every pathway named "
+                        "in Results 3.9, including the %d that are not among the "
+                        "sixteen gene sets displayed in Figure 6" % n_hidden))
+        print("  %-4s %-38s %7d rows x %2d cols  (%d not in Figure 6)"
+              % ("S10a", os.path.basename(dest), len(named), named.shape[1], n_hidden))
 
     # ---- multi-sheet workbook
     xlsx = os.path.join(SUPP, "Supplementary_Tables_S1-S10.xlsx")
