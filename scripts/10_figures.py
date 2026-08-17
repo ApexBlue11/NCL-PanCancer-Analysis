@@ -67,12 +67,17 @@ def figure1():
     for i, (_, r) in enumerate(g.iterrows()):
         c = sig_colour(r.cliffs_delta, r.q)
         ax.plot([r.delta_lo, r.delta_hi], [i, i], color=c, lw=1.1, zorder=2)
-        ax.scatter(r.cliffs_delta, i, s=17, color=c, zorder=3,
-                   marker="o" if r.tissue_match == "good" else "s",
+        # One visual channel per variable: colour carries significance and
+        # direction. Marker shape previously carried tissue match, which meant
+        # the legend had to show a shape in some arbitrary colour; readers took
+        # the grey legend square to be a fourth category rather than a shape
+        # key. Tissue match now sits on the cancer label instead.
+        ax.scatter(r.cliffs_delta, i, s=17, color=c, zorder=3, marker="o",
                    edgecolor="white", linewidth=0.3)
     ax.axvline(0, color="#222222", lw=0.7, ls="--", zorder=1)
     ax.set_yticks(np.arange(len(g)))
-    ax.set_yticklabels([f"{r.cohort}  (n={int(r.n_tumour)}/{int(r.n_normal)})"
+    ax.set_yticklabels([f"{r.cohort}{'*' if r.tissue_match != 'good' else ''}"
+                        f"  (n={int(r.n_tumour)}/{int(r.n_normal)})"
                         for _, r in g.iterrows()], fontsize=5.6)
     ax.set_xlabel("Cliff's delta, tumour vs GTEx normal (95% CI)")
     ax.set_xlim(-0.75, 1.05)
@@ -80,8 +85,8 @@ def figure1():
     ax.set_title("a", loc="left", fontweight="bold", fontsize=10)
     legend_below(ax, sig_handles(
         "higher in tumour (q<0.05)", "lower in tumour (q<0.05)",
-        extra=[Line2D([], [], marker="s", ls="", color=GREY,
-                      label="square marker: approximate tissue match")]),
+        extra=[Line2D([], [], ls="", marker="",
+                      label="* approximate TCGA-GTEx tissue match")]),
         ncol=2, pad=0.075)
 
     # (b) GTEx vs adjacent-normal comparator

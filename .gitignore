@@ -21,3 +21,6 @@ Thumbs.db
 
 # Response letter is a private communication with the journal, not for publication
 manuscript/response_to_reviewers.*
+
+# Local working notes, not for publication
+PROPOSED_CHANGES_LOCAL.md
