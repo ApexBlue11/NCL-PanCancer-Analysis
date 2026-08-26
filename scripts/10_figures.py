@@ -10,6 +10,7 @@ Every legend is checked against the data after drawing (figstyle.audit_legends);
 the build fails rather than shipping a legend that sits on top of the plot.
 """
 import os
+import re
 import numpy as np
 import pandas as pd
 import matplotlib
@@ -33,6 +34,33 @@ plt.rcParams.update({
 
 PROBLEMS = []
 
+# Gene-set names arrive as MSIGDB_STYLE_UNDERSCORES. The journal wants sentence
+# case, but the biology is full of acronyms that must not be flattened.
+ACRONYMS = {
+    "g2m": "G2/M", "myc": "MYC", "e2f": "E2F", "dna": "DNA", "rna": "RNA",
+    "mrna": "mRNA", "mrnas": "mRNAs", "trna": "tRNA", "snrnp": "snRNP",
+    "mtorc1": "mTORC1", "mtor": "mTOR", "pi3k": "PI3K", "akt": "AKT",
+    "nhej": "NHEJ", "npc": "NPC", "slbp": "SLBP", "rev": "Rev", "uv": "UV",
+    "sumoylation": "SUMOylation", "wnt": "Wnt", "ncl": "NCL",
+    "v1": "V1", "v2": "V2", "atp": "ATP", "hiv": "HIV",
+}
+
+
+def sentence_case(text):
+    """Sentence-case a pathway label without destroying its acronyms."""
+    text = text.strip()
+    first = re.match(r"[A-Za-z0-9]+", text)
+    first_is_acronym = bool(first) and first.group(0).lower() in ACRONYMS
+    for k, v in ACRONYMS.items():
+        text = re.sub(r"\b" + re.escape(k) + r"\b", v, text, flags=re.I)
+    text = re.sub(r"\btgf beta\b", "TGF-β", text, flags=re.I)
+    if not first_is_acronym:
+        for i, ch in enumerate(text):
+            if ch.isalpha():
+                text = text[:i] + ch.upper() + text[i + 1:]
+                break
+    return text
+
 
 def T(name):
     p = os.path.join(D.TABLES, name)
@@ -43,8 +71,11 @@ def save(fig, name):
     PROBLEMS.extend(audit_legends(fig, name))
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(D.FIGURES, f"{name}.{ext}"), dpi=DPI)
+    # The journal asks for .tif/.jpg legible at 100% zoom; LZW keeps it lossless.
+    fig.savefig(os.path.join(D.FIGURES, f"{name}.tiff"), dpi=DPI,
+                pil_kwargs={"compression": "tiff_lzw"})
     plt.close(fig)
-    print(f"  wrote {name}.png / .pdf")
+    print(f"  wrote {name}.png / .pdf / .tiff")
 
 
 def sig_colour(delta, q, thr=0.05):
@@ -77,16 +108,16 @@ def figure1():
     ax.axvline(0, color="#222222", lw=0.7, ls="--", zorder=1)
     ax.set_yticks(np.arange(len(g)))
     ax.set_yticklabels([f"{r.cohort}{'*' if r.tissue_match != 'good' else ''}"
-                        f"  (n={int(r.n_tumour)}/{int(r.n_normal)})"
+                        f"  ($n$={int(r.n_tumour):,}/{int(r.n_normal):,})"
                         for _, r in g.iterrows()], fontsize=5.6)
-    ax.set_xlabel("Cliff's delta, tumour vs GTEx normal (95% CI)")
+    ax.set_xlabel("Cliff's delta, tumor vs. GTEx normal (95% CI)")
     ax.set_xlim(-0.75, 1.05)
     ax.set_ylim(-1, len(g))
     ax.set_title("a", loc="left", fontweight="bold", fontsize=10)
     legend_below(ax, sig_handles(
-        "higher in tumour (q<0.05)", "lower in tumour (q<0.05)",
+        "Higher in tumor ($q$<0.05)", "Lower in tumor ($q$<0.05)",
         extra=[Line2D([], [], ls="", marker="",
-                      label="* approximate TCGA-GTEx tissue match")]),
+                      label="* Approximate TCGA–GTEx tissue match")]),
         ncol=2, pad=0.075)
 
     # (b) GTEx vs adjacent-normal comparator
@@ -101,18 +132,18 @@ def figure1():
     ax.axhline(0, color=GREY, lw=0.5); ax.axvline(0, color=GREY, lw=0.5)
     ax.plot([-1, 1], [-1, 1], color=GREY, lw=0.6, ls=":")
     ax.scatter(m.cliffs_delta_g[~flip], m.cliffs_delta_t[~flip], s=16,
-               color=GREY, edgecolor="white", linewidth=0.3, label="same direction")
+               color=GREY, edgecolor="white", linewidth=0.3, label="Same direction")
     ax.scatter(m.cliffs_delta_g[partial], m.cliffs_delta_t[partial], s=22,
                color="#F4A582", edgecolor="white", linewidth=0.4, zorder=3,
-               label="sign differs, one comparator ns")
+               label="Sign differs, one comparator ns")
     ax.scatter(m.cliffs_delta_g[reverse], m.cliffs_delta_t[reverse], s=30,
                color=UP, edgecolor="white", linewidth=0.4, zorder=4,
-               label="reverses (significant both ways)")
+               label="Reverses (significant both ways)")
     for c in m.index[flip]:
         ax.annotate(c, (m.cliffs_delta_g[c], m.cliffs_delta_t[c]),
                     fontsize=5.6, xytext=(3, 3), textcoords="offset points")
-    ax.set_xlabel("Cliff's delta vs GTEx normal")
-    ax.set_ylabel("Cliff's delta vs adjacent normal")
+    ax.set_xlabel("Cliff's delta vs. GTEx normal")
+    ax.set_ylabel("Cliff's delta vs. adjacent normal")
     ax.set_title("b", loc="left", fontweight="bold", fontsize=10)
     legend_below(ax, ncol=1)
 
@@ -128,14 +159,14 @@ def figure1():
         for v in (-1.96, 1.96):
             ax.axvline(v, color=GREY, lw=0.5, ls=":")
         ax.set_yticks(np.arange(len(s)))
-        ax.set_yticklabels([f"{r.cohort} (n={int(r.n_total)})" for _, r in s.iterrows()],
+        ax.set_yticklabels([f"{r.cohort} ($n$={int(r.n_total):,})" for _, r in s.iterrows()],
                            fontsize=5.6)
-        ax.set_xlabel("Jonckheere-Terpstra z (stage I to IV trend)")
+        ax.set_xlabel("Jonckheere–Terpstra $z$ (stage I to IV trend)")
         ax.set_title("c", loc="left", fontweight="bold", fontsize=10)
         # Same encoding as panel a, restated so the panel stands alone.
-        legend_below(ax, bar_handles("increases with stage (q<0.05)",
-                                     "decreases with stage (q<0.05)",
-                                     "no significant trend"), ncol=1)
+        legend_below(ax, bar_handles("Increases with stage ($q$<0.05)",
+                                     "Decreases with stage ($q$<0.05)",
+                                     "No significant trend"), ncol=1)
     save(fig, "Figure1_expression")
 
 
@@ -162,13 +193,13 @@ def figure2():
     ax.axvline(1, color="#222222", lw=0.7, ls="--")
     ax.set_xscale("log")
     ax.set_yticks(np.arange(len(r)))
-    ax.set_yticklabels([f"{x.cohort} (n={int(x.n_adj)}, e={int(x.events_adj)})"
+    ax.set_yticklabels([f"{x.cohort} ($n$={int(x.n_adj):,}, $e$={int(x.events_adj):,})"
                         for _, x in r.iterrows()], fontsize=5.6)
     ax.set_xlabel("Adjusted hazard ratio per SD of NCL, overall survival (95% CI)")
     ax.set_title("a", loc="left", fontweight="bold", fontsize=10)
     extra = [Line2D([], [], marker=r"$\dagger$", ls="", color=GREY,
-                    label="proportional hazards violated")] if flagged else None
-    legend_below(ax, sig_handles("adverse (q<0.05)", "protective (q<0.05)",
+                    label="Proportional hazards violated")] if flagged else None
+    legend_below(ax, sig_handles("Adverse ($q$<0.05)", "Protective ($q$<0.05)",
                                  extra=extra), ncol=2)
 
     # (b) univariate vs adjusted
@@ -191,13 +222,13 @@ def figure2():
     uni = [int((sv[(sv.endpoint == e)].uni_q < 0.05).sum()) for e in eps]
     adj = [int((sv[(sv.endpoint == e)].adj_q < 0.05).sum()) for e in eps]
     x = np.arange(3)
-    ax.bar(x - 0.19, uni, 0.38, color=NS, label="univariate")
-    ax.bar(x + 0.19, adj, 0.38, color=ACCENT, label="covariate-adjusted")
+    ax.bar(x - 0.19, uni, 0.38, color=NS, label="Univariate")
+    ax.bar(x + 0.19, adj, 0.38, color=ACCENT, label="Covariate-adjusted")
     for i, (u, a) in enumerate(zip(uni, adj)):
         ax.annotate(str(u), (i - 0.19, u), ha="center", va="bottom", fontsize=6)
         ax.annotate(str(a), (i + 0.19, a), ha="center", va="bottom", fontsize=6)
     ax.set_xticks(x); ax.set_xticklabels(eps)
-    ax.set_ylabel("cancers significant (q<0.05)")
+    ax.set_ylabel("Cancers significant ($q$<0.05)")
     ax.set_ylim(0, max(uni + adj) * 1.25)
     ax.set_title("c", loc="left", fontweight="bold", fontsize=10)
     legend_below(ax, ncol=2)
@@ -222,14 +253,14 @@ def figure3():
                     conflict=("direction", lambda v: (v == "mixed").sum()),
                     total=("cohort", "size")).sort_values("total"))
         y = np.arange(len(agg))
-        ax.barh(y, agg.concordant, color=ACCENT, height=0.6, label="concordant")
+        ax.barh(y, agg.concordant, color=ACCENT, height=0.6, label="Concordant")
         ax.barh(y, agg.conflict, left=agg.concordant, color=UP, height=0.6,
-                label="algorithms disagree in direction")
+                label="Algorithms disagree in direction")
         ax.barh(y, agg.total - agg.concordant - agg.conflict,
                 left=agg.concordant + agg.conflict, color=NS, height=0.6,
-                label="no or insufficient signal")
+                label="No or insufficient signal")
         ax.set_yticks(y); ax.set_yticklabels(agg.index, fontsize=6)
-        ax.set_xlabel("number of cancers")
+        ax.set_xlabel("Number of cancers")
         ax.set_xlim(0, 33)
         ax.set_title("a", loc="left", fontweight="bold", fontsize=10)
         # Bars span the full width, so the legend must sit outside the axes.
@@ -250,7 +281,7 @@ def figure3():
                            edgecolor="white", linewidth=0.2)
         ax.axvline(0, color="#222222", lw=0.7, ls="--")
         ax.set_yticks(y); ax.set_yticklabels(piv.index, fontsize=5.0)
-        ax.set_xlabel("Spearman rho with NCL")
+        ax.set_xlabel(r"Spearman $\rho$ with NCL")
         ax.set_title("b", loc="left", fontweight="bold", fontsize=10)
         # Points reach both edges of the panel; keep the key outside.
         legend_below(ax, ncol=1, pad=0.075)
@@ -267,7 +298,7 @@ def figure3():
         p.set(color=UP, linewidth=1.0)
     ax.axvline(0, color="#222222", lw=0.7, ls="--")
     ax.set_yticklabels(algs, fontsize=6)
-    ax.set_xlabel("purity-adjusted Spearman rho with NCL")
+    ax.set_xlabel(r"Purity-adjusted Spearman $\rho$ with NCL")
     ax.set_title("c", loc="left", fontweight="bold", fontsize=10)
     save(fig, "Figure3_immune")
 
@@ -289,11 +320,11 @@ def figure4():
     r = pd.DataFrame(rows, columns=["alias", "pos", "neg", "n"]).set_index("alias")
     r = r.sort_values("pos")
     y = np.arange(len(r))
-    ax.barh(y, r.pos, color=UP, height=0.62, label="positive")
-    ax.barh(y, -r.neg, color=DOWN, height=0.62, label="negative")
+    ax.barh(y, r.pos, color=UP, height=0.62, label="Positive")
+    ax.barh(y, -r.neg, color=DOWN, height=0.62, label="Negative")
     ax.axvline(0, color="#222222", lw=0.7)
     ax.set_yticks(y); ax.set_yticklabels(r.index, fontsize=6.4)
-    ax.set_xlabel("cancers with a robust association\n"
+    ax.set_xlabel("Cancers with a robust association\n"
                   "(significant after purity AND proliferation adjustment)")
     ax.set_title("a", loc="left", fontweight="bold", fontsize=10)
     legend_below(ax, ncol=2)
@@ -301,17 +332,17 @@ def figure4():
     ax = fig.add_subplot(grid[0, 1])
     b = cp[cp.alias == "B7-H3"].sort_values("rho")
     y = np.arange(len(b))
-    ax.scatter(b.rho, y, s=13, color=NS, label="unadjusted",
+    ax.scatter(b.rho, y, s=13, color=NS, label="Unadjusted",
                edgecolor="white", linewidth=0.2)
-    ax.scatter(b.rho_purity_adj, y, s=13, color="#7FBC91", label="purity-adjusted",
+    ax.scatter(b.rho_purity_adj, y, s=13, color="#7FBC91", label="Purity-adjusted",
                edgecolor="white", linewidth=0.2)
-    ax.scatter(b.rho_prolif_adj, y, s=15, color=ACCENT, label="proliferation-adjusted",
+    ax.scatter(b.rho_prolif_adj, y, s=15, color=ACCENT, label="Proliferation-adjusted",
                edgecolor="white", linewidth=0.2)
     ax.axvline(0, color="#222222", lw=0.7, ls="--")
     ax.set_yticks(y)
-    ax.set_yticklabels([f"{x.cohort} (n={int(x.n)})" for _, x in b.iterrows()],
+    ax.set_yticklabels([f"{x.cohort} ($n$={int(x.n):,})" for _, x in b.iterrows()],
                        fontsize=5.2)
-    ax.set_xlabel("Spearman rho, NCL vs CD276 (B7-H3)")
+    ax.set_xlabel(r"Spearman $\rho$, NCL vs. CD276 (B7-H3)")
     ax.set_title("b", loc="left", fontweight="bold", fontsize=10)
     legend_below(ax, ncol=1)
     save(fig, "Figure4_checkpoints")
@@ -335,11 +366,10 @@ def figure5():
     ax.set_yticklabels([f"{r.cohort} ({int(r.n_tumour)}/{int(r.n_normal)}"
                         + (f", {int(r.n_paired)} paired)" if pd.notna(r.n_paired) else ")")
                         for _, r in ok.iterrows()], fontsize=6)
-    ax.set_xlabel("Cliff's delta, NCL protein tumour vs normal (95% CI)")
-    ax.set_title("CPTAC protein-level validation", fontsize=8, loc="left")
+    ax.set_xlabel("Cliff's delta, NCL protein tumor vs. normal (95% CI)")
     # Same encoding as Figures 1a and 2a, restated so the panel stands alone.
-    legend_below(ax, sig_handles("higher in tumour (q<0.05)",
-                                 "lower in tumour (q<0.05)"), ncol=3)
+    legend_below(ax, sig_handles("Higher in tumor ($q$<0.05)",
+                                 "Lower in tumor ($q$<0.05)"), ncol=3)
     save(fig, "Figure5_cptac")
 
 
@@ -358,7 +388,7 @@ def figure6():
 
     fig, axes = plt.subplots(1, 2, figsize=(7.2, 5.6))
     any_neg = False
-    for ax, coll in zip(axes, ["Hallmark", "Reactome"]):
+    for panel, (ax, coll) in enumerate(zip(axes, ["Hallmark", "Reactome"])):
         s = sig[sig.collection == coll]
         if not len(s):
             ax.set_visible(False); continue
@@ -373,25 +403,25 @@ def figure6():
         y = np.arange(len(agg))
         ax.barh(y, agg.med, color=[UP if v > 0 else DOWN for v in agg.med], height=0.65)
         ax.axvline(0, color="#222222", lw=0.7)
-        labs = [t.replace(f"{coll.upper()}_", "").replace("_", " ").lower()[:52]
+        labs = [sentence_case(t.replace(f"{coll.upper()}_", "")
+                              .replace("_", " ").lower())[:52]
                 for t in agg.index]
         ax.set_yticks(y)
         ax.set_yticklabels([f"{l}  ({int(n)}/{n_c})" for l, n in zip(labs, agg.n)],
                            fontsize=5.2)
-        ax.set_xlabel("median NES across cancers")
-        ax.set_title(coll, fontsize=8, loc="left", fontweight="bold")
+        ax.set_xlabel("Median NES across cancers")
+        ax.set_title(chr(97 + panel) + "   " + coll, fontsize=9, loc="left",
+                     fontweight="bold")
 
     # Red and blue carry the same directional meaning as in the other figures.
-    handles = bar_handles("positively enriched with high NCL",
-                          "negatively enriched with high NCL")
+    handles = bar_handles("Positively enriched with high NCL",
+                          "Negatively enriched with high NCL")
     if not any_neg:
         handles = [handles[0],
                    Rectangle((0, 0), 1, 1, fc="white", ec="none",
                              label="(no negatively enriched set met the display threshold)")]
     legend_below(axes[0], handles, ncol=1, fontsize=5.6)
-    fig.suptitle("Pathways consistently associated with NCL expression",
-                 fontsize=8.5, x=0.02, ha="left")
-    fig.tight_layout(rect=(0, 0.02, 1, 0.97))
+    fig.tight_layout(rect=(0, 0.02, 1, 1))
     save(fig, "Figure6_gsea")
 
 

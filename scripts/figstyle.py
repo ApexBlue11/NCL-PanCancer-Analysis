@@ -25,7 +25,7 @@ UP, DOWN, NS, GREY = "#B2182B", "#2166AC", "#BBBBBB", "#666666"
 ACCENT = "#1B7837"
 
 
-def sig_handles(pos_label, neg_label, ns_label="not significant", extra=None):
+def sig_handles(pos_label, neg_label, ns_label="Not significant", extra=None):
     """Legend handles for the shared red / blue / grey significance encoding."""
     h = [Line2D([], [], marker="o", ls="", color=UP, label=pos_label),
          Line2D([], [], marker="o", ls="", color=DOWN, label=neg_label),
