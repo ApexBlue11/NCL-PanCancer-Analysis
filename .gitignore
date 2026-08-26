@@ -29,7 +29,3 @@ PROPOSED_CHANGES_LOCAL.md
 # internal editor queries as tracked comments, so like the response letter they
 # stay local — this repository is public.
 EJMO*.docx
-
-# Journal-submission TIFFs: derived from the same code as the tracked PNG/PDF
-# and ~6 MB per rebuild. Regenerate with `python scripts/10_figures.py`.
-results/figures/*.tiff
