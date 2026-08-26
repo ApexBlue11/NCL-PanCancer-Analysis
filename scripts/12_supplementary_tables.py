@@ -6,12 +6,12 @@ Table S5" should not have to consult an index to discover it is called
 T4_immune_infiltration.tsv, so this script materialises the S-numbered set:
 
   results/supplementary/S1_*.tsv ... S11_*.tsv   one file per supplementary table
-  results/supplementary/Supplementary_Tables_S1-S10.xlsx   multi-sheet workbook
+  results/supplementary/Supplementary_Tables_S1-S11.xlsx   multi-sheet workbook
   results/supplementary/README.md                          index with row counts
 
-S11 (the gene-by-cancer correlation matrix, ~58,000 rows x 33 columns) is
-distributed only as a compressed TSV: it is too large to sit comfortably in a
-workbook alongside the others.
+S11 (the gene-by-cancer correlation matrix, ~58,000 rows x 33 columns) is also
+included in the workbook: it is well inside Excel's 1,048,576-row limit and adds
+about 15 MB, giving a ~22 MB workbook. It remains available as a compressed TSV.
 
 S1 is generated here from the cohort definitions; the rest are derived from the
 analysis outputs, so the supplementary set cannot drift from the results.
@@ -64,8 +64,8 @@ S_TABLES = [
      "ranking statistic"),
 ]
 
-# S11 is excluded from the workbook on size grounds.
-IN_WORKBOOK = {s for s, *_ in S_TABLES if s != "S11"} | {"S10a"}
+# Every S-numbered table, S11 included, ships in the workbook.
+IN_WORKBOOK = {s for s, *_ in S_TABLES} | {"S10a"}
 
 
 # Pathways named in Results 3.9, with the wording used in the text. Figure 6
@@ -206,7 +206,7 @@ def main():
               % ("S10a", os.path.basename(dest), len(named), named.shape[1], n_hidden))
 
     # ---- multi-sheet workbook
-    xlsx = os.path.join(SUPP, "Supplementary_Tables_S1-S10.xlsx")
+    xlsx = os.path.join(SUPP, "Supplementary_Tables_S1-S11.xlsx")
     with pd.ExcelWriter(xlsx, engine="openpyxl") as xw:
         idx = pd.DataFrame(
             [{"Table": s, "File": f, "Rows": r, "Columns": c, "Contents": d}
@@ -223,9 +223,9 @@ def main():
     lines = ["# Supplementary tables", "",
              "Supplementary tables as referred to by S-number in the manuscript.",
              "",
-             "`Supplementary_Tables_S1-S10.xlsx` contains S1 to S10 as separate "
-             "sheets. S11 is distributed only as a compressed TSV because it is too "
-             "large for a workbook.", "",
+             "`Supplementary_Tables_S1-S11.xlsx` contains S1 to S11 as separate "
+             "sheets (about 22 MB). Each table is also available individually as a "
+             "TSV.", "",
              "| Table | File | Rows | Cols | Contents |", "|---|---|---|---|---|"]
     for s, f, r, c, d in written:
         lines.append("| **%s** | `%s` | %s | %s | %s |" % (s, f, format(r, ","), c, d))
