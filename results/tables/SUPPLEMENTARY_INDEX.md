@@ -2,7 +2,7 @@
 
 Supplementary tables as referred to by S-number in the manuscript.
 
-`Supplementary_Tables_S1-S10.xlsx` contains S1 to S10 as separate sheets. S11 is distributed only as a compressed TSV because it is too large for a workbook.
+`Supplementary_Tables_S1-S11.xlsx` contains S1 to S11 as separate sheets (about 22 MB). Each table is also available individually as a TSV.
 
 | Table | File | Rows | Cols | Contents |
 |---|---|---|---|---|

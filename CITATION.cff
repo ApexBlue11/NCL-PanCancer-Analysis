@@ -1,0 +1,69 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software or its result tables, please cite the article in
+  preferred-citation rather than this repository.
+title: "NCL-PanCancer-Analysis: reproducible pan-cancer analysis of nucleolin"
+abstract: >-
+  Analysis code, result tables, figures and run manifest for a pan-cancer study
+  of nucleolin (NCL) across 33 TCGA cancers, with GTEx normal references and
+  independent CPTAC protein-level validation.
+type: software
+license: MIT
+repository-code: "https://github.com/ApexBlue11/NCL-PanCancer-Analysis"
+authors:
+  - given-names: Kruthika
+    family-names: Prakash
+    orcid: "https://orcid.org/0009-0004-6628-7865"
+  - given-names: Janani
+    family-names: Balaji
+    orcid: "https://orcid.org/0009-0003-1610-2722"
+  - given-names: Surya
+    family-names: Babu
+    orcid: "https://orcid.org/0009-0006-0576-0588"
+  - given-names: Ramya Lakshmi
+    family-names: Rajendran
+    orcid: "https://orcid.org/0000-0001-6987-0854"
+  - given-names: Prakash
+    family-names: Gangadaran
+    orcid: "https://orcid.org/0000-0002-0658-4604"
+  - given-names: ArulJothi Kandasamy
+    family-names: Nagarajan
+    orcid: "https://orcid.org/0000-0002-1514-9911"
+  - given-names: Byeong-Cheol
+    family-names: Ahn
+    orcid: "https://orcid.org/0000-0001-7700-3929"
+preferred-citation:
+  type: article
+  title: >-
+    Nucleolin overexpression correlates with poor prognosis and immune
+    checkpoint regulation across various cancer types: Insights from The Cancer
+    Genome Atlas and GTEx analyses
+  journal: "Eurasian Journal of Medicine and Oncology"
+  year: 2026
+  month: 9
+  doi: "10.36922/EJMO026220241"
+  url: "https://accscience.com/journal/EJMO/articles/online_first/9151"
+  # Online First: no volume, issue or pages assigned yet.
+  notes: "Published online 4 September 2026"
+  authors:
+    - given-names: Kruthika
+      family-names: Prakash
+      orcid: "https://orcid.org/0009-0004-6628-7865"
+    - given-names: Janani
+      family-names: Balaji
+      orcid: "https://orcid.org/0009-0003-1610-2722"
+    - given-names: Surya
+      family-names: Babu
+      orcid: "https://orcid.org/0009-0006-0576-0588"
+    - given-names: Ramya Lakshmi
+      family-names: Rajendran
+      orcid: "https://orcid.org/0000-0001-6987-0854"
+    - given-names: Prakash
+      family-names: Gangadaran
+      orcid: "https://orcid.org/0000-0002-0658-4604"
+    - given-names: ArulJothi Kandasamy
+      family-names: Nagarajan
+      orcid: "https://orcid.org/0000-0002-1514-9911"
+    - given-names: Byeong-Cheol
+      family-names: Ahn
+      orcid: "https://orcid.org/0000-0001-7700-3929"

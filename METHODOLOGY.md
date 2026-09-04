@@ -350,6 +350,6 @@ Other constraints:
 | `MANUSCRIPT_NUMBERS.txt` | Every quoted number, traced to source | whole manuscript |
 | `S1_cohorts_and_tissue_mapping.tsv` | Cohort names, sample counts, TCGA-GTEx map | Supplementary Table S1 |
 | `supplementary/S1..S11` | Supplementary tables as cited in the manuscript | all supplementary |
-| `supplementary/Supplementary_Tables_S1-S10.xlsx` | Multi-sheet workbook for journal upload | all supplementary |
+| `supplementary/Supplementary_Tables_S1-S11.xlsx` | Multi-sheet workbook for journal upload | all supplementary |
 
 ---

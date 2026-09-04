@@ -22,7 +22,7 @@ Across 74 multivariable Cox models spanning overall, disease-specific and progre
 This is consistent with, rather than contrary to, the immunohistochemical literature. The largest prior meta-analysis (12 studies, 1,221 patients, 8 cancers) found *cytoplasmic* NCL adverse (HR 4.32) but *nuclear* NCL protective (HR 0.42). Bulk transcriptome measurement sums those compartments, so a near-null total-transcript effect is what the localisation hypothesis predicts. The practical implication: prognostic use of NCL requires an assay that resolves subcellular localisation.
 
 **NCL is broadly overexpressed, and confirmed at protein level.**
-Elevated in 24 of 29 evaluable cancers (Cliff's delta up to +0.93), reduced in ovarian carcinoma. Confirmed in **7 of 9** independent CPTAC proteomic cohorts with paired adjacent normals (LUAD delta +0.99, LSCC +0.97, GBM +0.99, COAD +0.89, ccRCC +0.65, HNSCC +0.53). PDAC and UCEC did not confirm and are reported as such.
+Elevated in 24 of 29 evaluable cancers (Cliff's delta up to +0.93), reduced in ovarian carcinoma. Confirmed in **7 of 9** independent CPTAC proteomic cohorts with paired adjacent normals (LUAD delta +0.99, LSCC +0.97, GBM +0.99, OV +0.91, COAD +0.89, CCRCC +0.65, HNSCC +0.52). PDAC and UCEC did not confirm and are reported as such.
 
 **NCL is proliferation-coupled in every cancer.**
 GSEA on genes ranked by within-cancer correlation with NCL: the Hallmark G2M checkpoint signature is enriched in **32 of 32** cancers, MYC targets in 31, E2F targets in 30; Reactome results are dominated by mRNA processing, snRNP assembly and chromatin modification (31 of 32). No immune signature is consistently enriched, which is why every checkpoint association here is reported after explicit proliferation adjustment.
@@ -83,14 +83,12 @@ Every script is idempotent (it skips work whose output already exists) so an int
 ├── README.md                  you are here
 ├── METHODOLOGY.md             every analytical decision, script and output
 ├── requirements.txt           pinned environment
-├── manuscript/                manuscript (working copy and submission copy
-│                              with figures and tables embedded)
 ├── scripts/                   the pipeline
 └── results/
     ├── tables/                all per-test results under working names
-    ├── supplementary/         S1-S11 as cited in the manuscript, plus a
-    │                          multi-sheet workbook (Supplementary_Tables_S1-S10.xlsx)
-    ├── figures/               600 dpi PNG + vector PDF
+    ├── supplementary/         S1-S11 as cited in the article, plus a
+    │                          multi-sheet workbook (Supplementary_Tables_S1-S11.xlsx)
+    ├── figures/               600 dpi PNG, TIFF (LZW) and vector PDF
     ├── MANIFEST.json/.md      input checksums, package versions, seeds
     └── MANUSCRIPT_NUMBERS.txt every number quoted in the manuscript
 ```
@@ -158,7 +156,32 @@ Survival endpoints are the curated TCGA Clinical Data Resource definitions (Liu 
 
 ## Citation
 
-Manuscript under review. Please cite this repository until publication.
+Prakash K, Balaji J, Babu S, et al. Nucleolin overexpression correlates with poor
+prognosis and immune checkpoint regulation across various cancer types: Insights
+from The Cancer Genome Atlas and GTEx analyses. *Eurasian J Med Oncol*. Published
+online September 4, 2026. doi:10.36922/EJMO026220241
+
+<https://doi.org/10.36922/EJMO026220241>
+
+```bibtex
+@article{Prakash2026Nucleolin,
+  author  = {Kruthika Prakash and Janani Balaji and Surya Babu and
+             Ramya Lakshmi Rajendran and Prakash Gangadaran and
+             ArulJothi Kandasamy Nagarajan and Byeong-Cheol Ahn},
+  title   = {Nucleolin overexpression correlates with poor prognosis and immune
+             checkpoint regulation across various cancer types: Insights from
+             The Cancer Genome Atlas and {GTEx} analyses},
+  journal = {Eurasian Journal of Medicine and Oncology},
+  year    = {2026},
+  note    = {Published online 4 September 2026},
+  doi     = {10.36922/EJMO026220241},
+  url     = {https://accscience.com/journal/EJMO/articles/online_first/9151},
+}
+```
+
+The article is Online First, so it carries no volume, issue or page numbers yet;
+add them once the issue is assigned. Please cite the article rather than this
+repository.
 
 ## License
 
