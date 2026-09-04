@@ -67,7 +67,6 @@ python scripts/08_cptac_validation.py
 python scripts/09_manuscript_numbers.py
 python scripts/10_figures.py
 python scripts/12_supplementary_tables.py
-python scripts/13_build_submission.py
 python scripts/11_manifest.py
 ```
 
@@ -111,7 +110,6 @@ Every script is idempotent (it skips work whose output already exists) so an int
 | `09_manuscript_numbers.py` | Emit every manuscript number, traced to source |
 | `10_figures.py` | Publication figures at 600 dpi |
 | `12_supplementary_tables.py` | Supplementary Tables S1-S11 and the workbook |
-| `13_build_submission.py` | Manuscript copy with figures and tables embedded |
 | `11_manifest.py` | Input checksums, package versions, seeds |
 | `cohorts.py` / `data_io.py` / `statsutil.py` | Cohort definitions, loaders, statistics |
 | `test_statsutil.py` | Verification suite for `statsutil` |
