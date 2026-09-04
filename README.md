@@ -2,7 +2,7 @@
 
 Reproducible pan-cancer analysis of Nucleolin: expression, prognosis, immune microenvironment and pathway associations across 9,358 TCGA tumours, with GTEx normal references and independent CPTAC protein-level validation.
 
-Code and result tables for the manuscript *"Nucleolin Is Associated with B7-H3 and an Immune-Excluded Phenotype Across Human Cancers: A Pan-Cancer Analysis of 9,358 Tumours."*
+Code and result tables for the manuscript *"Nucleolin overexpression correlates with poor prognosis and immune checkpoint regulation across various cancer types: Insights from The Cancer Genome Atlas and GTEx analyses"*
 
 ---
 
