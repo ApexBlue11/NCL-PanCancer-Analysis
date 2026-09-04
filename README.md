@@ -177,9 +177,7 @@ online September 4, 2026. doi:10.36922/EJMO026220241
 }
 ```
 
-The article is Online First, so it carries no volume, issue or page numbers yet;
-add them once the issue is assigned. Please cite the article rather than this
-repository.
+
 
 ## License
 
