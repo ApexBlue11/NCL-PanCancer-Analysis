@@ -166,6 +166,10 @@ def build_s1():
 
 
 def main():
+    # S1 is built from the Xena phenotype file (cohort sample counts and the
+    # TCGA-GTEx tissue map), so this step needs the source data, not just the
+    # result tables.
+    D.require_raw("12_supplementary_tables.py")
     frames, written = {}, []
 
     for snum, src, stem, desc in S_TABLES:

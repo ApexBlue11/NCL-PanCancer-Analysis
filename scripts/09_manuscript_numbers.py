@@ -13,6 +13,11 @@ import data_io as D
 
 T = D.TABLES
 OUT = os.path.join(D.RESULTS, "MANUSCRIPT_NUMBERS.txt")
+
+# Cohort sample counts come from the Xena phenotype file, not from any result
+# table, so this step cannot run on the distributed tables alone.
+D.require_raw("09_manuscript_numbers.py")
+
 lines = []
 
 
@@ -24,7 +29,7 @@ def load(name):
     p = os.path.join(T, name)
     if not os.path.exists(p):
         return None
-    return pd.read_csv(p, sep="\t", low_memory=False)
+    return D.table(name)
 
 
 def sec(title):

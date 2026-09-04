@@ -116,6 +116,25 @@ Steps 04, 05, 06 and 08 are mutually independent and may be run in any order onc
 
 **`07_gsea_correlations.py` makes one pass over the matrix, not one per cancer.** Correlating NCL against every gene within each of 32 cohorts invites the pattern `X[:, cohort_columns]`, which for a memmap re-reads every row (that is, the entire 4.6 GB file) once per cohort, about 150 GB of I/O. Instead the file is read once in row blocks, and all cohorts are updated from each block.
 
+### 4.2 Committed tables versus a real run
+
+Committing the result tables makes every figure and every quoted number
+inspectable without a 6 GB download, but it creates a way to be misled: run
+`10_figures.py` on a fresh clone and six publication figures appear, looking
+for all the world like a reproduction of the analysis when nothing was
+recomputed. `data_io.py` closes that gap.
+
+`_resolve_data_root()` searches `$NCL_DATA`, `<repo>/data`, `./data`,
+`scripts/data` and the working directory, taking the first that actually
+contains raw inputs, so an existing download is reused wherever it lives rather
+than silently ignored. `data_io.table()` then states once per process whether
+the tables it is serving were computed by this checkout or shipped with it, and
+`data_io.require_raw()` stops the steps that cannot run on tables alone with
+the list of missing files and the command that fetches them.
+
+The division is: **01–08 compute, 09–12 report.** Only the reporting steps can
+run without source data, and they now say so.
+
 ---
 
 ## 5. Analysis specification

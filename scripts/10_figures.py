@@ -63,8 +63,9 @@ def sentence_case(text):
 
 
 def T(name):
+    """Load a result table, announcing once where the numbers came from."""
     p = os.path.join(D.TABLES, name)
-    return pd.read_csv(p, sep="\t", low_memory=False) if os.path.exists(p) else None
+    return D.table(name) if os.path.exists(p) else None
 
 
 def save(fig, name):
