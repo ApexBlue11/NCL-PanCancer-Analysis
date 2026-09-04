@@ -70,6 +70,24 @@ def describe(path):
 
 
 def main():
+    # A manifest whose whole job is recording what produced the results is worse
+    # than useless if it records nothing: run this without the inputs on disk and
+    # every checksum is replaced by "absent", silently destroying the provenance
+    # of a completed run. Refuse, unless the caller says that is what they meant.
+    missing = D.missing_raw()
+    if missing and "--allow-missing" not in sys.argv:
+        sys.exit(
+            "\nrefusing to write the manifest: %d of %d raw inputs are missing.\n"
+            "  looked in : %s  (%s)\n"
+            "  missing   : %s\n"
+            "\nWriting now would overwrite the existing checksums with 'absent'\n"
+            "and lose the record of the run that produced results/.\n"
+            "Fetch the inputs (`python scripts/01_download.py`), point NCL_DATA at\n"
+            "an existing copy, or pass --allow-missing if a partial manifest is\n"
+            "genuinely what you want.\n"
+            % (len(missing), len(D.RAW_INPUTS), D.RAW, D.DATA_ROOT_ORIGIN,
+               ", ".join(missing)))
+
     man = {
         "generated_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "platform": platform.platform(),

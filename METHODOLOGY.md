@@ -132,6 +132,13 @@ the tables it is serving were computed by this checkout or shipped with it, and
 `data_io.require_raw()` stops the steps that cannot run on tables alone with
 the list of missing files and the command that fetches them.
 
+`11_manifest.py` gets a stronger guard than the rest, because its failure mode
+is destructive rather than merely confusing: run without the inputs on disk and
+it replaced every recorded checksum with `absent`, quietly erasing the
+provenance of a completed run. It now refuses and exits non-zero, leaving the
+existing manifest alone; `--allow-missing` writes a partial one for anyone who
+actually wants that.
+
 The division is: **01–08 compute, 09–12 report.** Only the reporting steps can
 run without source data, and they now say so.
 
