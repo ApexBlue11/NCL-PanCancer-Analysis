@@ -112,7 +112,8 @@ Every script is idempotent (it skips work whose output already exists) so an int
 | `12_supplementary_tables.py` | Supplementary Tables S1-S11 and the workbook |
 | `11_manifest.py` | Input checksums, package versions, seeds |
 | `cohorts.py` / `data_io.py` / `statsutil.py` | Cohort definitions, loaders, statistics |
-| `test_statsutil.py` | Verification suite for `statsutil` |
+| `figstyle.py` | Shared colour encoding and the legend-collision audit |
+| `test_statsutil.py` / `test_figstyle.py` | Verification suites for `statsutil` and the legend audit |
 
 ---
 

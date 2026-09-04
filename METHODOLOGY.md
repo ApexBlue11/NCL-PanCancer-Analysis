@@ -103,7 +103,9 @@ scripts/
   cohorts.py                 # cohort definitions, TCGA↔GTEx map, gene panels
   data_io.py                 # shared loaders
   statsutil.py               # effect sizes, CIs, FDR, trend and partial tests
+  figstyle.py                # shared colour encoding, legend-collision audit
   test_statsutil.py          # verification suite for statsutil
+  test_figstyle.py           # negative control for the legend audit
 ```
 
 Steps 04, 05, 06 and 08 are mutually independent and may be run in any order once 03 completes. Step 07 requires 07a and 07_gsea_correlations.
